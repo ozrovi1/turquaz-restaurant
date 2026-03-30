@@ -1,0 +1,60 @@
+/* ShapedMedia: arch + circle, gold stroke, hover */
+.shaped-media {
+  --shaped-gold: rgba(212, 160, 23, 0.6);
+  --shaped-gold-hover: rgba(212, 160, 23, 0.9);
+  --shaped-glow: 0 0 12px rgba(212, 160, 23, 0.25);
+
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--shaped-gold);
+  background: #0a1f0a;
+  transition:
+    border-color 280ms ease-out,
+    box-shadow 280ms ease-out;
+}
+
+.shaped-media:focus-visible {
+  outline: none;
+  border-color: var(--cta-primary);
+  box-shadow: 0 0 0 2px #0a1f0a, 0 0 0 4px var(--cta-primary);
+}
+
+.shaped-media:hover {
+  border-color: var(--shaped-gold-hover);
+  box-shadow: var(--shaped-glow);
+}
+
+.shaped-media--circle {
+  border-radius: 50%;
+}
+
+.shaped-media__clip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.shaped-media--circle .shaped-media__clip {
+  border-radius: 50%;
+}
+
+.shaped-media__img {
+  object-fit: cover;
+  transition: transform 320ms ease-out;
+}
+
+.shaped-media:hover .shaped-media__img {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shaped-media,
+  .shaped-media__img {
+    transition: none;
+  }
+
+  .shaped-media:hover .shaped-media__img {
+    transform: none;
+  }
+}
