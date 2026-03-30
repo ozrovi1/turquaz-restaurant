@@ -16,8 +16,8 @@ export const gunesLanding = {
   tagline: "Authentic cuisine and warm hospitality across London.",
   heroBg: "/sister/gunes-bg.png",
   branches: [
-    { slug: "enfield", name: "Enfield", area: "North London", address: "Enfield, London", phone: "+44 20 8886 1234", imageUrl: "/sister/enfield-bg.png" },
-    { slug: "walthamstow", name: "Walthamstow", area: "East London", address: "22 High Street, Walthamstow, London E17 7LD", phone: "+44 20 8520 4567", imageUrl: "/sister/walthamstow-bg.png" },
+    { slug: "enfield", name: "Enfield", area: "North London", address: "Enfield, London", phone: "+44 20 8886 1234", imageUrl: "/sister/enfield-bg.png", url: "https://www.gunesrestaurant.uk/" },
+    { slug: "walthamstow", name: "Walthamstow", area: "East London", address: "22 High Street, Walthamstow, London E17 7LD", phone: "+44 20 8520 4567", imageUrl: "/sister/walthamstow-bg.png", url: "https://www.gunesrestaurant.uk/" },
   ],
 };
 

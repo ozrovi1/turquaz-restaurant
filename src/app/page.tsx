@@ -121,9 +121,9 @@ export default function HomePage() {
                 </div>
                 <p className="mt-2 text-[#faf8f5]/80 text-xs sm:text-sm transition-colors duration-200 hover:text-[#d4af37] cursor-default">info@gunes.co.uk</p>
                 <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
-                  <span className="text-[11px] sm:text-[12px] text-[#d4af37] font-medium tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547] cursor-default">Locations</span>
-                  <span className="text-[11px] sm:text-[12px] text-[#d4af37] font-medium tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547] cursor-default">View Menu</span>
-                  <span className="text-[11px] sm:text-[12px] text-[#d4af37] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547] cursor-default">Reserve a Table</span>
+                  <a href="https://www.gunesrestaurant.uk/" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[12px] text-[#d4af37] font-medium tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547]">Locations</a>
+                  <a href="https://www.gunesrestaurant.uk/" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[12px] text-[#d4af37] font-medium tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547]">View Menu</a>
+                  <a href="https://www.gunesrestaurant.uk/" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[12px] text-[#d4af37] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547]">Reserve a Table</a>
                 </div>
               </div>
             </div>
