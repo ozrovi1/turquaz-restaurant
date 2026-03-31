@@ -1,14 +1,19 @@
+
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import type { Branch } from "@/data/branches";
+import { getOpenStatus } from "@/utils/openStatus";
 
 interface LocationCardProps {
   branch: Branch;
-  /** Static mock badge: "Open now" or "Closes 23:00" */
+  /** @deprecated — ignored, status is now computed from branch hours */
   badge?: "open" | "closes";
 }
 
-export function LocationCard({ branch, badge = "open" }: LocationCardProps) {
+export function LocationCard({ branch }: LocationCardProps) {
   if (branch.comingSoon) {
     return (
       <article className="flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 cursor-default">
@@ -22,7 +27,14 @@ export function LocationCard({ branch, badge = "open" }: LocationCardProps) {
     );
   }
 
-  const badgeText = badge === "open" ? "Open now" : "Closes 23:00";
+  const [status, setStatus] = useState(() => getOpenStatus(branch));
+
+  useEffect(() => {
+    const interval = setInterval(() => setStatus(getOpenStatus(branch)), 60_000);
+    return () => clearInterval(interval);
+  }, [branch]);
+
+  const badgeText = status.isOpen ? status.detail : status.label;
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_28px_rgba(212,160,23,0.15)]">
@@ -50,7 +62,7 @@ export function LocationCard({ branch, badge = "open" }: LocationCardProps) {
           {/* Badge */}
           <span
             className={`absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase ${
-              badge === "open"
+              status.isOpen
                 ? "bg-[#2d5a2d]/90 text-[#a8d4a8] border border-[#3d7a3d]/50"
                 : "bg-[#0d2818]/90 text-[#166534]/90 border border-[#d4a017]/30"
             }`}

@@ -1,4 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { getOpenStatus } from "@/utils/openStatus";
+import type { Branch } from "@/data/branches";
 
 interface SisterBranch {
   slug: string;
@@ -6,6 +11,7 @@ interface SisterBranch {
   area: string;
   address: string;
   phone: string;
+  hours?: string;
   imageUrl?: string;
   url?: string;
   comingSoon?: boolean;
@@ -16,8 +22,16 @@ interface SisterBranchCardProps {
   badge?: "open" | "closes";
 }
 
-export function SisterBranchCard({ branch, badge = "open" }: SisterBranchCardProps) {
-  const badgeText = branch.comingSoon ? "Coming Soon" : badge === "open" ? "Open now" : "Closes 23:00";
+export function SisterBranchCard({ branch }: SisterBranchCardProps) {
+  const fakeBranch = { hours: branch.hours || "" } as Branch;
+  const [status, setStatus] = useState(() => getOpenStatus(fakeBranch));
+
+  useEffect(() => {
+    const interval = setInterval(() => setStatus(getOpenStatus(fakeBranch)), 60_000);
+    return () => clearInterval(interval);
+  }, [branch.hours]);
+
+  const badgeText = branch.comingSoon ? "Coming Soon" : status.isOpen ? status.detail : status.label;
 
   const card = (
     <article className={`group relative flex flex-col overflow-hidden rounded-2xl border border-[#d4af37]/25 bg-[#0d1f0d]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4af37]/50 hover:shadow-[0_0_24px_rgba(212,175,55,0.12)] ${branch.comingSoon ? "opacity-50 pointer-events-none" : ""}`}>
@@ -41,7 +55,7 @@ export function SisterBranchCard({ branch, badge = "open" }: SisterBranchCardPro
             className={`absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase ${
               branch.comingSoon
                 ? "bg-[#0d1f0d]/90 text-[#faf8f5]/60 border border-[#faf8f5]/20"
-                : badge === "open"
+                : status.isOpen
                 ? "bg-[#2d5a2d]/90 text-[#a8d4a8] border border-[#3d7a3d]/50"
                 : "bg-[#0d1f0d]/90 text-[#d4af37]/90 border border-[#d4af37]/30"
             }`}
