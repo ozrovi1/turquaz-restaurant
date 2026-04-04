@@ -23,11 +23,11 @@ export function InstagramFeed({
   followersCount,
   followingCount,
   placeholderImages = [
-    "/photos/DSC00115.JPG",
-    "/photos/DSC00270.JPG",
-    "/photos/DSC00306.JPG",
-    "/photos/DSC00424.JPG",
-    "/photos/DSC09860.JPG",
+    "/photos/aldershot-appetizers.jpg",
+    "/photos/aldershot-mains.jpg",
+    "/photos/aldershot-desserts.png",
+    "/photos/appetizers.png",
+    "/photos/main-dishes.png",
   ],
 }: InstagramFeedProps) {
   const profileUrl = instagramHandle
