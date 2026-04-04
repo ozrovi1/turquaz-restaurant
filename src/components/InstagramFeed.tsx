@@ -73,13 +73,10 @@ export function InstagramFeed({
       {/* Live Instagram embeds or placeholder images */}
       {hasLivePosts ? (
         <div
-          className="flex gap-4 overflow-x-auto overscroll-x-contain snap-x snap-mandatory px-3 py-4 sm:p-4"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 px-3 py-4 sm:p-4"
         >
-          {postUrls.map((url, i) => (
-            <div key={i} className="flex-shrink-0 w-[320px] sm:w-[400px] snap-center">
-              <InstagramEmbed postUrl={url} />
-            </div>
+          {postUrls.slice(0, 4).map((url, i) => (
+            <InstagramEmbed key={i} postUrl={url} />
           ))}
         </div>
       ) : (
