@@ -29,8 +29,10 @@ export interface Branch {
   uberEatsUrl?: string;
   /** Instagram handle - add per branch later for live stats & photos */
   instagramHandle?: string;
-  /** Instagram post URLs for embed carousel - add per branch later */
+  /** Instagram post URLs for embed carousel */
   instagramPostUrls?: string[];
+  /** Local thumbnail paths matching instagramPostUrls order */
+  instagramThumbnails?: string[];
   /** Live stats when Instagram connected */
   instagramPostsCount?: number;
   instagramFollowersCount?: number;
@@ -62,6 +64,12 @@ export const branches: Branch[] = [
       "https://www.instagram.com/reel/DEy4kWaowFg/",
       "https://www.instagram.com/reel/DDiCG6SIvAV/",
       "https://www.instagram.com/reel/DCg81nuoFSn/",
+    ],
+    instagramThumbnails: [
+      "/photos/aldershot-appetizers.jpg",
+      "/photos/aldershot-mains.jpg",
+      "/photos/aldershot-desserts.png",
+      "/photos/main-dishes.png",
     ],
     instagramPostsCount: 355,
     instagramFollowersCount: 15000,
@@ -100,6 +108,12 @@ export const branches: Branch[] = [
       "https://www.instagram.com/reel/DDiCG6SIvAV/",
       "https://www.instagram.com/reel/DCg81nuoFSn/",
     ],
+    instagramThumbnails: [
+      "/photos/appetizers.png",
+      "/photos/main-dishes.png",
+      "/photos/desserts.png",
+      "/photos/feltham-exterior.png",
+    ],
     instagramPostsCount: 355,
     instagramFollowersCount: 15000,
     instagramFollowingCount: 141,
@@ -127,6 +141,12 @@ export const branches: Branch[] = [
       "https://www.instagram.com/reel/DEy4kWaowFg/",
       "https://www.instagram.com/reel/DDiCG6SIvAV/",
       "https://www.instagram.com/reel/DCg81nuoFSn/",
+    ],
+    instagramThumbnails: [
+      "/photos/crawley-exterior.png",
+      "/photos/appetizers.png",
+      "/photos/desserts.png",
+      "/photos/main-dishes.png",
     ],
     instagramPostsCount: 355,
     instagramFollowersCount: 15000,

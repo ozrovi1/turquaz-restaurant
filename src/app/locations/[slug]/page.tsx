@@ -218,6 +218,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
             logoUrl={logoUrl}
             instagramHandle={branch.instagramHandle}
             postUrls={branch.instagramPostUrls}
+            postThumbnails={branch.instagramThumbnails}
             postsCount={branch.instagramPostsCount}
             followersCount={branch.instagramFollowersCount}
             followingCount={branch.instagramFollowingCount}

@@ -9,6 +9,7 @@ interface InstagramFeedProps {
   logoUrl: string;
   instagramHandle?: string;
   postUrls?: string[];
+  postThumbnails?: string[];
   postsCount?: number;
   followersCount?: number;
   followingCount?: number;
@@ -20,6 +21,7 @@ export function InstagramFeed({
   logoUrl,
   instagramHandle,
   postUrls = [],
+  postThumbnails = [],
   postsCount,
   followersCount,
   followingCount,
@@ -76,7 +78,7 @@ export function InstagramFeed({
           className="grid grid-cols-2 sm:grid-cols-4 gap-3 px-3 py-4 sm:p-4"
         >
           {postUrls.slice(0, 4).map((url, i) => (
-            <InstagramEmbed key={i} postUrl={url} />
+            <InstagramEmbed key={i} postUrl={url} thumbnailSrc={postThumbnails[i] || placeholderImages[i] || "/photos/appetizers.png"} />
           ))}
         </div>
       ) : (
