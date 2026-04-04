@@ -6,14 +6,17 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import type { Branch } from "@/data/branches";
 import { getOpenStatus } from "@/utils/openStatus";
+import { getBookingPartners, reserveTargetForBranch } from "@/utils/reserveLinks";
 
 interface LocationCardProps {
   branch: Branch;
   /** @deprecated — ignored, status is now computed from branch hours */
   badge?: "open" | "closes";
+  /** When false, card itself is not clickable (buttons/links inside still work). */
+  withCardLink?: boolean;
 }
 
-export function LocationCard({ branch }: LocationCardProps) {
+export function LocationCard({ branch, withCardLink = true }: LocationCardProps) {
   if (branch.comingSoon) {
     return (
       <article className="flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 cursor-default">
@@ -35,11 +38,19 @@ export function LocationCard({ branch }: LocationCardProps) {
   }, [branch]);
 
   const badgeText = status.isOpen ? status.detail : status.label;
+  const partners = getBookingPartners(branch);
+  const reserve = reserveTargetForBranch(branch);
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_28px_rgba(212,160,23,0.15)]">
-      {/* Stretched link: entire card → location */}
-      <Link href={`/locations/${branch.slug}`} className="absolute inset-0 z-0" aria-label={`View ${branch.name} location`} />
+      {/* Optional stretched link: entire card → location */}
+      {withCardLink && (
+        <Link
+          href={`/locations/${branch.slug}`}
+          className="absolute inset-0 z-0"
+          aria-label={`View ${branch.name} location`}
+        />
+      )}
 
       <div className="relative z-10 flex flex-1 flex-col pointer-events-none">
         {/* Image + bottom gradient overlay */}
@@ -84,22 +95,50 @@ export function LocationCard({ branch }: LocationCardProps) {
           <p className="text-[11px] sm:text-xs text-[#e8c547]/90 line-clamp-2 leading-relaxed min-h-[2.5rem]">
             {branch.address}
           </p>
-          <p className="text-[10px] sm:text-[11px] text-[#e8c547]/80 mt-2 flex items-center gap-1.5">
-            <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-            {branch.phone}
-          </p>
+          {branch.phone.trim().length > 0 && (
+            <p className="text-[10px] sm:text-[11px] text-[#e8c547]/80 mt-2 flex items-center gap-1.5">
+              <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              {branch.phone}
+            </p>
+          )}
           {/* Primary CTA: Reserve a Table | Secondary: View Menu */}
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 pointer-events-auto">
-            <Link
-              href={`/reservations?branch=${branch.slug}`}
-              className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#166534] tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
-              aria-label={`Reserve a table at ${branch.name}`}
-            >
-              Reserve a Table
-              <span className="card-arrow" aria-hidden>→</span>
-            </Link>
+            {partners.length > 1 ? (
+              partners.map((p) => (
+                <Link
+                  key={p.label}
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#166534] tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
+                  aria-label={`Reserve via ${p.label} at ${branch.name}`}
+                >
+                  {p.label}
+                  <span className="card-arrow" aria-hidden>
+                    →
+                  </span>
+                </Link>
+              ))
+            ) : (
+              <Link
+                href={reserve.href}
+                target={reserve.external ? "_blank" : undefined}
+                rel={reserve.external ? "noopener noreferrer" : undefined}
+                className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#166534] tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
+                aria-label={
+                  partners.length === 1
+                    ? `Reserve via ${partners[0].label} at ${branch.name}`
+                    : `Reserve a table at ${branch.name}`
+                }
+              >
+                {partners.length === 1 ? `Reserve — ${partners[0].label}` : "Reserve a Table"}
+                <span className="card-arrow" aria-hidden>
+                  →
+                </span>
+              </Link>
+            )}
             {branch.menuUrl && (
               <Link
                 href={branch.menuUrl}

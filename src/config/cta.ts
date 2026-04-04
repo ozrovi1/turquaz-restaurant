@@ -1,7 +1,9 @@
 /**
  * CTA hierarchy configuration
  *
- * Primary: "Reserve a Table" → /reservations (or /reservations?branch={slug} on branch pages)
+ * Primary: "Reserve a Table" → /reservation (or /reservation?branch={slug} on branch pages).
+ *   Branches with multiple bookingPartners (e.g. Aldershot: The Fork + Dojo) always use
+ *   /reservation?branch={slug} from the sticky header; cards can show per-platform links.
  * Secondary: "View Menu" → /menu (or /menu?branch={slug} on branch pages)
  *
  * Links per location:
@@ -10,7 +12,7 @@
  * - This is derived from usePathname() in StickyHeader and MobileFloatingButton.
  *
  * To override or add custom logic, edit:
- * - src/components/StickyHeader.tsx (buildReserveHref, buildMenuHref)
+ * - src/components/StickyHeader.tsx (reserveHrefForSlug via @/utils/reserveLinks, buildMenuHref)
  * - src/components/MobileFloatingButton.tsx (href)
  * - src/components/LocationCard.tsx (uses branch.slug and branch.menuUrl)
  */

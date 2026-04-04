@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { isExternalReserveForSlug, reserveHrefForSlug } from "@/utils/reserveLinks";
 
 const SCROLL_THRESHOLD = 120;
 
@@ -15,7 +16,8 @@ function useBranchFromPath(): string | null {
 export function MobileFloatingButton() {
   const [visible, setVisible] = useState(false);
   const branch = useBranchFromPath();
-  const href = branch ? `/reservations?branch=${branch}` : "/reservations";
+  const href = reserveHrefForSlug(branch);
+  const external = isExternalReserveForSlug(branch);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +36,8 @@ export function MobileFloatingButton() {
     >
       <Link
         href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
         className="btn-primary flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--cta-primary)] text-[#0a0a0a] text-xs font-semibold tracking-[0.15em] uppercase shadow-lg shadow-black/25 hover:bg-[var(--cta-primary-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cta-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1f0a]"
         aria-label="Reserve a table"
       >

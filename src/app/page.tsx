@@ -38,6 +38,7 @@ export default function HomePage() {
               key={branch.slug}
               branch={branch}
               badge={i % 2 === 0 ? "open" : "closes"}
+              withCardLink={!branch.comingSoon}
             />
           ))}
         </div>
@@ -51,7 +52,9 @@ export default function HomePage() {
             <span className="w-8 h-px bg-[#d4a017]/30" />
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[#faf8f5] text-xs sm:text-sm [text-shadow:0_1px_3px_rgba(0,0,0,0.6)]">
-            {branches.filter((b) => !b.comingSoon).map((branch) => (
+            {branches
+              .filter((b) => !b.comingSoon && b.phone.trim().length > 0)
+              .map((branch) => (
               <a key={branch.slug} href={`tel:${branch.phone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">
                 {branch.name}: {branch.phone}
               </a>
@@ -67,7 +70,7 @@ export default function HomePage() {
             <Link href="/menu" className="text-[11px] sm:text-[12px] text-[#faf8f5] font-medium tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors [text-shadow:0_1px_3px_rgba(0,0,0,0.6)]">
               View Menu
             </Link>
-            <Link href="/reservations" className="text-[11px] sm:text-[12px] text-[#faf8f5] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors [text-shadow:0_1px_3px_rgba(0,0,0,0.6)]">
+            <Link href="/reservation" className="text-[11px] sm:text-[12px] text-[#faf8f5] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors [text-shadow:0_1px_3px_rgba(0,0,0,0.6)]">
               Reserve a Table
             </Link>
           </div>

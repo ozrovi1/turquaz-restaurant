@@ -35,13 +35,15 @@ export default function LocationsPage() {
 
         <SectionReveal>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {branches.map((branch, i) => (
-            <LocationCard
-              key={branch.slug}
-              branch={branch}
-              badge={i % 2 === 0 ? "open" : "closes"}
-            />
-          ))}
+          {branches
+            .filter((b) => !b.comingSoon)
+            .map((branch, i) => (
+              <LocationCard
+                key={branch.slug}
+                branch={branch}
+                badge={i % 2 === 0 ? "open" : "closes"}
+              />
+            ))}
         </div>
         </SectionReveal>
 
@@ -53,7 +55,9 @@ export default function LocationsPage() {
             <span className="w-8 h-px bg-[#d4a017]/30" />
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[#faf8f5]/80 text-xs sm:text-sm">
-            {branches.filter((b) => !b.comingSoon).map((branch) => (
+            {branches
+              .filter((b) => !b.comingSoon && b.phone.trim().length > 0)
+              .map((branch) => (
               <a key={branch.slug} href={`tel:${branch.phone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">
                 {branch.name}: {branch.phone}
               </a>
@@ -69,7 +73,7 @@ export default function LocationsPage() {
             <Link href="/menu" className="text-[11px] sm:text-[12px] text-[#d4a017] font-medium tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors">
               View Menu
             </Link>
-            <Link href="/reservations" className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors">
+            <Link href="/reservation" className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors">
               Reserve a Table
             </Link>
           </div>

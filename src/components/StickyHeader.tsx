@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef, useCallback } from "react";
+import { isExternalReserveForSlug, reserveHrefForSlug } from "@/utils/reserveLinks";
 
 const SCROLL_THRESHOLD = 80;
 
@@ -15,10 +16,6 @@ function useBranchFromPath(): string | null {
   const pathname = usePathname();
   const match = pathname?.match(/^\/locations\/([^/]+)$/);
   return match ? match[1] : null;
-}
-
-function buildReserveHref(branch: string | null): string {
-  return branch ? `/reservations?branch=${branch}` : "/reservations";
 }
 
 function buildMenuHref(branch: string | null): string {
@@ -66,7 +63,8 @@ export function StickyHeader() {
     };
   }, [menuOpen, closeMenu]);
 
-  const reserveHref = buildReserveHref(branch);
+  const reserveHref = reserveHrefForSlug(branch);
+  const reserveExternal = isExternalReserveForSlug(branch);
   const menuHref = buildMenuHref(branch);
 
   return (
@@ -99,6 +97,8 @@ export function StickyHeader() {
           </Link>
           <Link
             href={reserveHref}
+            target={reserveExternal ? "_blank" : undefined}
+            rel={reserveExternal ? "noopener noreferrer" : undefined}
             className="btn-primary inline-flex items-center px-5 py-2.5 rounded-lg bg-[var(--cta-primary)] text-[#faf8f5] text-xs font-semibold tracking-[0.2em] uppercase hover:bg-[var(--cta-primary-hover)]"
             aria-label="Reserve a table"
           >
@@ -155,6 +155,8 @@ export function StickyHeader() {
           </Link>
           <Link
             href={reserveHref}
+            target={reserveExternal ? "_blank" : undefined}
+            rel={reserveExternal ? "noopener noreferrer" : undefined}
             onClick={closeMenu}
             className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-[var(--cta-primary)] text-[#faf8f5] text-sm font-semibold tracking-[0.2em] uppercase hover:bg-[var(--cta-primary-hover)] transition-colors mt-1"
           >

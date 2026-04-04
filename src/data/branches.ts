@@ -1,3 +1,16 @@
+/**
+ * Aldershot only — other branches have no bookingPartners and use /reservation + on-site form.
+ * Env NEXT_PUBLIC_ALDERSHOT_THEFORK_BOOKING_URL overrides this. Ad-tracking query params omitted.
+ */
+const ALDERSHOT_THEFORK_BOOKING_URL =
+  "https://www.thefork.co.uk/restaurant/turquaz-mediterranean-restaurant-r846951?cc=83567-2de";
+
+/** Named third-party booking link (e.g. The Fork, Dojo). */
+export interface BookingPartnerLink {
+  label: string;
+  url: string;
+}
+
 export interface Branch {
   slug: string;
   name: string;
@@ -22,6 +35,12 @@ export interface Branch {
   instagramFollowingCount?: number;
   /** Branch-specific menu category images */
   menuImages?: { appetizers?: string; mains?: string; desserts?: string };
+  /**
+   * Per-branch optional external booking (e.g. The Fork + Dojo). Only Aldershot uses this today.
+   * One link → opens in a new tab; two+ → /reservation?branch=… to pick a platform.
+   * Omit on other branches → internal booking form only.
+   */
+  bookingPartners?: BookingPartnerLink[];
 }
 
 export const branches: Branch[] = [
@@ -44,6 +63,15 @@ export const branches: Branch[] = [
       mains: "/photos/aldershot-mains.jpg",
       desserts: "/photos/aldershot-desserts.png",
     },
+    /* Aldershot-only external booking; Feltham & Crawley unchanged */
+    bookingPartners: [
+      {
+        label: "The Fork",
+        url:
+          process.env.NEXT_PUBLIC_ALDERSHOT_THEFORK_BOOKING_URL?.trim() || ALDERSHOT_THEFORK_BOOKING_URL,
+      },
+      { label: "Dojo", url: process.env.NEXT_PUBLIC_ALDERSHOT_DOJO_BOOKING_URL?.trim() || "" },
+    ].filter((p) => p.url.length > 0),
   },
   {
     slug: "feltham",
@@ -76,12 +104,43 @@ export const branches: Branch[] = [
     instagramFollowingCount: 141,
   },
   {
-    slug: "london",
-    name: "East Ham",
-    area: "",
-    address: "",
+    slug: "trowbridge",
+    name: "Trowbridge",
+    area: "Wiltshire",
+    address: "Leisure Park, St Stephen's Pl, Trowbridge BA14 8TQ",
     phone: "",
     hours: "",
+    instagramHandle: "turkuazrestaurantuk",
+    comingSoon: true,
+  },
+  {
+    slug: "staines",
+    name: "Staines",
+    area: "Surrey",
+    address: "Tilly's Ln, Staines TW18 4BL",
+    phone: "",
+    hours: "",
+    instagramHandle: "turkuazrestaurantuk",
+    comingSoon: true,
+  },
+  {
+    slug: "eastleigh",
+    name: "Eastleigh",
+    area: "Hampshire",
+    address: "Unit L2, The Swan Centre, Eastleigh SO50 5SF",
+    phone: "",
+    hours: "",
+    instagramHandle: "turkuazrestaurantuk",
+    comingSoon: true,
+  },
+  {
+    slug: "crawley-leisure-park",
+    name: "Crawley (Leisure Park)",
+    area: "West Sussex",
+    address: "Unit 5, Leisure Park, Crawley Leisure Park, Kilnmead, Crawley RH10 8LR",
+    phone: "",
+    hours: "",
+    instagramHandle: "turkuazrestaurantuk",
     comingSoon: true,
   },
 ];

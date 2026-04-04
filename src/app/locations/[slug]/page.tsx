@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getBranchBySlug, branches } from "@/data/branches";
 import { logoUrl, aboutUs } from "@/data/site";
 import { BookingForm } from "@/components/BookingForm";
+import { getBookingPartners, reserveTargetForBranch } from "@/utils/reserveLinks";
 import { menuCategories } from "@/data/menu";
 import { SectionReveal } from "@/components/SectionReveal";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
@@ -34,6 +35,9 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
   const { slug } = await params;
   const branch = getBranchBySlug(slug);
   if (!branch || branch.comingSoon) notFound();
+
+  const partners = getBookingPartners(branch);
+  const reserve = reserveTargetForBranch(branch);
 
   const services = [
     { title: "Party & Celebrations", desc: "Transform your special moments into unforgettable memories with our elegant party spaces and exceptional catering services tailored to your celebration needs." },
@@ -73,10 +77,29 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
             <a href="mailto:info@turquaz.co.uk" className="block hover:text-[#d4a017] transition-colors">info@turquaz.co.uk</a>
             <p><a href={`tel:${branch.phone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">Booking: {branch.phone}</a></p>
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
-            <Link href={`/reservations?branch=${branch.slug}`} className="btn-primary px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547]">
-              Reserve a Table
-            </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 flex-wrap">
+            {partners.length > 1 ? (
+              partners.map((p) => (
+                <Link
+                  key={p.label}
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547]"
+                >
+                  Reserve — {p.label}
+                </Link>
+              ))
+            ) : (
+              <Link
+                href={reserve.href}
+                target={reserve.external ? "_blank" : undefined}
+                rel={reserve.external ? "noopener noreferrer" : undefined}
+                className="btn-primary px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547]"
+              >
+                {partners.length === 1 ? `Reserve — ${partners[0].label}` : "Reserve a Table"}
+              </Link>
+            )}
             {branch.menuUrl && (
               <Link href={branch.menuUrl} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
                 View Menu
@@ -98,10 +121,45 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                 <span className="text-[#d4a017] text-sm">✦</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-medium">Reserve Your Table</h2>
-              <p className="text-[#faf8f5]/80 text-sm mt-2">Booking: {branch.phone} or use the form below</p>
+              <p className="text-[#faf8f5]/80 text-sm mt-2">
+                {partners.length > 1
+                  ? `Booking: ${branch.phone}, or choose The Fork or Dojo below.`
+                  : partners.length === 1
+                    ? `Booking: ${branch.phone}, or reserve online below.`
+                    : `Booking: ${branch.phone} or use the form below`}
+              </p>
             </div>
             <div className="rounded-2xl overflow-hidden border-2 border-[#d4a017]/20 bg-[#0a1f0a]/80 p-6 sm:p-10">
-              <BookingForm branchSlug={branch.slug} branchName={branch.name} />
+              {partners.length > 0 ? (
+                <div className="text-center space-y-6 py-4">
+                  <p className="text-[#faf8f5]/85 text-sm leading-relaxed max-w-md mx-auto">
+                    {partners.length > 1
+                      ? `You will leave this site to complete your booking on The Fork or Dojo.`
+                      : `You will leave this site to complete your booking on ${partners[0].label}.`}
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center max-w-md mx-auto">
+                    {partners.map((p) => (
+                      <Link
+                        key={p.label}
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex flex-1 items-center justify-center px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547] transition-colors"
+                      >
+                        {p.label}
+                      </Link>
+                    ))}
+                  </div>
+                  <p className="text-[#faf8f5]/50 text-xs">
+                    Prefer to call?{" "}
+                    <a href={`tel:${branch.phone.replace(/\s/g, "")}`} className="text-[#d4a017] hover:underline">
+                      {branch.phone}
+                    </a>
+                  </p>
+                </div>
+              ) : (
+                <BookingForm branchSlug={branch.slug} branchName={branch.name} />
+              )}
             </div>
           </OrnamentalFrame>
         </SectionReveal>
