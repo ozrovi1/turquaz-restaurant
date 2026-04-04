@@ -105,6 +105,12 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                 View Menu
               </Link>
             )}
+            {branch.uberEatsUrl && (
+              <a href={branch.uberEatsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#22c55e]/40 text-[#22c55e] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#22c55e] hover:bg-[#22c55e]/10 transition-colors">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm1-8H8V7h8v2z"/></svg>
+                Order Online
+              </a>
+            )}
           </div>
         </SectionReveal>
       </section>

@@ -25,6 +25,8 @@ export interface Branch {
   imageUrl?: string;
   /** Map center: [lat, lng] */
   mapCoords?: [number, number];
+  /** Uber Eats order URL — shows "Order Online" button when set */
+  uberEatsUrl?: string;
   /** Instagram handle - add per branch later for live stats & photos */
   instagramHandle?: string;
   /** Instagram post URLs for embed carousel - add per branch later */
@@ -58,6 +60,7 @@ export const branches: Branch[] = [
     instagramPostsCount: 355,
     instagramFollowersCount: 15000,
     instagramFollowingCount: 141,
+    uberEatsUrl: "https://www.ubereats.com/gb/store/turquaz-restaurant/CgjeStXGVIyeMH_K3qVumQ",
     menuImages: {
       appetizers: "/photos/aldershot-appetizers.jpg",
       mains: "/photos/aldershot-mains.jpg",
@@ -83,10 +86,17 @@ export const branches: Branch[] = [
     imageUrl: "/photos/feltham-exterior.png",
     menuUrl: "/menus/feltham.pdf",
     mapCoords: [51.443, -0.404],
+    uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-feltham/prhGtztKTcutUeGrdAA8VA",
     instagramHandle: "turkuazrestaurantuk",
     instagramPostsCount: 355,
     instagramFollowersCount: 15000,
     instagramFollowingCount: 141,
+    bookingPartners: [
+      {
+        label: "The Fork",
+        url: "https://www.thefork.co.uk/restaurant/turkuaz-restaurant-feltham-r825545",
+      },
+    ],
   },
   {
     slug: "crawley",
@@ -98,6 +108,7 @@ export const branches: Branch[] = [
     imageUrl: "/photos/crawley-exterior.png",
     menuUrl: "/menus/crawley.pdf",
     mapCoords: [51.115, -0.190],
+    uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-crawley/gM2jyL2lRlqb84087MtkiA",
     instagramHandle: "turkuazrestaurantuk",
     instagramPostsCount: 355,
     instagramFollowersCount: 15000,
