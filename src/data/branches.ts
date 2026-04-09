@@ -87,7 +87,7 @@ export const branches: Branch[] = [
         url:
           process.env.NEXT_PUBLIC_ALDERSHOT_THEFORK_BOOKING_URL?.trim() || ALDERSHOT_THEFORK_BOOKING_URL,
       },
-      { label: "Dojo", url: process.env.NEXT_PUBLIC_ALDERSHOT_DOJO_BOOKING_URL?.trim() || "" },
+      { label: "Dojo", url: process.env.NEXT_PUBLIC_ALDERSHOT_DOJO_BOOKING_URL?.trim() || "https://web.dojo.app/create_booking/vendor/HNpQ4JjPAC5Y8mT1UuY9xBvyDwKdTbbaJDcYw3KoXok_restaurant" },
     ].filter((p) => p.url.length > 0),
   },
   {
