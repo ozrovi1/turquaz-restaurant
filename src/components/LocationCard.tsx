@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Branch } from "@/data/branches";
 import { getOpenStatus } from "@/utils/openStatus";
 import { getBookingPartners, reserveTargetForBranch } from "@/utils/reserveLinks";
@@ -18,28 +18,71 @@ interface LocationCardProps {
 
 export function LocationCard({ branch, withCardLink = true }: LocationCardProps) {
   if (branch.comingSoon) {
+    const showDetails = branch.slug !== "trowbridge";
     return (
       <article className="flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 cursor-default">
         <div className="relative aspect-[4/3] flex items-center justify-center bg-[#0d2818]">
           <div className="text-center px-4">
-            <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] mb-2">{branch.name}</h2>
+            {!showDetails && <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] mb-2">{branch.name}</h2>}
             <p className="text-[#d4a017] text-[11px] sm:text-xs tracking-[0.2em] uppercase font-medium">Coming soon</p>
           </div>
         </div>
+        {showDetails && (
+          <div className="flex flex-1 flex-col p-4 sm:p-5 min-h-[140px] sm:min-h-[160px]">
+            <p className="text-[10px] sm:text-[11px] text-[#166534] tracking-[0.2em] uppercase mb-1">
+              {branch.area}
+            </p>
+            <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] leading-tight mb-2">
+              {branch.name}
+            </h2>
+            {branch.address && (
+              <p className="text-[11px] sm:text-xs text-[#e8c547]/90 line-clamp-2 leading-relaxed">
+                {branch.address}
+              </p>
+            )}
+            {branch.phone && branch.phone.trim().length > 0 && (
+              <p className="text-[10px] sm:text-[11px] text-[#e8c547]/80 mt-2 flex items-center gap-1.5">
+                <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                {branch.phone}
+              </p>
+            )}
+          </div>
+        )}
       </article>
     );
   }
 
   const [status, setStatus] = useState(() => getOpenStatus(branch));
+  const [orderOpen, setOrderOpen] = useState(false);
+  const orderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => setStatus(getOpenStatus(branch)), 60_000);
     return () => clearInterval(interval);
   }, [branch]);
 
+  useEffect(() => {
+    if (!orderOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (orderRef.current && !orderRef.current.contains(e.target as Node)) {
+        setOrderOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [orderOpen]);
+
   const badgeText = status.isOpen ? status.detail : status.label;
   const partners = getBookingPartners(branch);
   const reserve = reserveTargetForBranch(branch);
+
+  const orderPlatforms = [
+    branch.uberEatsUrl ? { label: "Uber Eats", url: branch.uberEatsUrl } : null,
+    branch.deliverooUrl ? { label: "Deliveroo", url: branch.deliverooUrl } : null,
+    branch.justEatUrl ? { label: "Just Eat", url: branch.justEatUrl } : null,
+  ].filter(Boolean) as { label: string; url: string }[];
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_28px_rgba(212,160,23,0.15)]">
@@ -148,6 +191,35 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
                 View Menu
                 <span className="card-arrow" aria-hidden>→</span>
               </Link>
+            )}
+            {orderPlatforms.length > 0 && (
+              <div ref={orderRef} className="relative">
+                <button
+                  onClick={() => setOrderOpen((v) => !v)}
+                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#d4a017] tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
+                  aria-label={`Order online from ${branch.name}`}
+                >
+                  Order Online
+                  <svg className={`w-3 h-3 transition-transform duration-200 ${orderOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {orderOpen && (
+                  <div className="absolute bottom-full left-0 mb-2 min-w-[140px] rounded-lg border border-[#d4a017]/30 bg-[#0d2818]/95 backdrop-blur-sm shadow-xl shadow-black/30 py-1.5 z-50">
+                    {orderPlatforms.map((p) => (
+                      <a
+                        key={p.label}
+                        href={p.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block px-3 py-1.5 text-[11px] text-[#faf8f5] hover:bg-[#d4a017]/15 hover:text-[#f4d03f] transition-colors"
+                      >
+                        {p.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>

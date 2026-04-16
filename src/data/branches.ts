@@ -27,6 +27,10 @@ export interface Branch {
   mapCoords?: [number, number];
   /** Uber Eats order URL — shows "Order Online" button when set */
   uberEatsUrl?: string;
+  /** Deliveroo order URL */
+  deliverooUrl?: string;
+  /** Just Eat order URL */
+  justEatUrl?: string;
   /** Instagram handle - add per branch later for live stats & photos */
   instagramHandle?: string;
   /** Instagram post URLs for embed carousel */
@@ -75,6 +79,8 @@ export const branches: Branch[] = [
     instagramFollowersCount: 15000,
     instagramFollowingCount: 141,
     uberEatsUrl: "https://www.ubereats.com/gb/store/turquaz-restaurant/CgjeStXGVIyeMH_K3qVumQ",
+    deliverooUrl: "https://deliveroo.co.uk/menu/camberley/aldershot/turquaz-aldershot",
+    justEatUrl: "https://www.just-eat.co.uk/restaurants-turquaz-aldershot/menu",
     menuImages: {
       appetizers: "/photos/aldershot-appetizers.jpg",
       mains: "/photos/aldershot-mains.jpg",
@@ -101,6 +107,8 @@ export const branches: Branch[] = [
     menuUrl: "/menus/feltham.pdf",
     mapCoords: [51.443, -0.404],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-feltham/prhGtztKTcutUeGrdAA8VA",
+    deliverooUrl: "https://deliveroo.co.uk/menu/london/feltham/turkuaz-restaurant-feltham-browells-lane",
+    justEatUrl: "https://www.just-eat.co.uk/restaurants-turkuaz-restaurant-feltham-feltham/menu",
     instagramHandle: "turkuazrestaurantuk",
     instagramPostUrls: [
       "https://www.instagram.com/p/DUApAjBjGN2/",
@@ -135,6 +143,8 @@ export const branches: Branch[] = [
     menuUrl: "/menus/crawley.pdf",
     mapCoords: [51.115, -0.190],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-crawley/gM2jyL2lRlqb84087MtkiA",
+    deliverooUrl: "https://deliveroo.co.uk/menu/crawley/crawley/turkuaz-crawley",
+    justEatUrl: "https://www.just-eat.co.uk/restaurants-turkuaz-restaurant-crawley-crawley/menu",
     instagramHandle: "turkuazrestaurantuk",
     instagramPostUrls: [
       "https://www.instagram.com/p/DUApAjBjGN2/",
