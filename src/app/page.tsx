@@ -86,44 +86,28 @@ export default function HomePage() {
             <span className="w-8 h-px bg-[#d4a017]/30" />
           </div>
 
-          {/* Gunes - link preview card to external website */}
-          <a
-            href={GUNES_WEBSITE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visit ${gunesLanding.name} website`}
-            className="group relative block rounded-2xl overflow-hidden border border-[#d4a017]/20 bg-[#081408] transition-all duration-300 hover:border-[#d4a017]/50 hover:shadow-[0_0_32px_rgba(212,175,55,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]"
-          >
-            <div className="absolute inset-0">
-              <div
-                className="absolute inset-0 bg-cover bg-center blur-[2px] transition-transform duration-500 group-hover:scale-[1.03]"
-                style={{ backgroundImage: `url('${gunesLanding.heroBg}')` }}
-              />
-              <div className="absolute inset-0 bg-[#081408]/75" />
-            </div>
-            <div className="relative z-10 flex flex-col sm:flex-row items-center gap-5 sm:gap-8 px-6 py-7 sm:px-10 sm:py-9">
-              <div className="shrink-0">
-                <Image
-                  src={gunesLanding.logoUrl}
-                  alt={gunesLanding.name}
-                  width={280}
-                  height={90}
-                  className="h-16 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="flex-1 text-center sm:text-left">
-                <p className="text-[10px] sm:text-[11px] text-[#d4af37] tracking-[0.3em] uppercase mb-2">Sister Restaurant</p>
-                <h2 className="text-xl sm:text-2xl font-medium text-[#faf8f5] mb-2">{gunesLanding.name}</h2>
-                <p className="text-[#faf8f5]/80 text-xs sm:text-sm leading-relaxed max-w-md">
-                  {gunesLanding.tagline}
-                </p>
-              </div>
-              <div className="shrink-0 inline-flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-[#d4af37] tracking-[0.2em] uppercase transition-colors duration-200 group-hover:text-[#e8c547]">
-                Visit Website
-                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-              </div>
-            </div>
-          </a>
+          {/* Gunes - live full-page preview (iframe, non-interactive) */}
+          <div className="relative rounded-2xl overflow-hidden border border-[#d4a017]/25 bg-[#081408] shadow-xl shadow-black/30">
+            <iframe
+              src={GUNES_WEBSITE_URL}
+              title={`${gunesLanding.name} — live homepage preview`}
+              loading="lazy"
+              scrolling="no"
+              className="block w-full h-[1500px] sm:h-[1400px] border-0 pointer-events-none"
+            />
+            <a
+              href={GUNES_WEBSITE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${gunesLanding.name} website`}
+              className="group absolute inset-0 z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37] focus-visible:ring-inset"
+            >
+              <span className="absolute top-4 right-4 sm:top-5 sm:right-5 inline-flex items-center gap-2 rounded-lg bg-[#0a1a0a]/85 backdrop-blur-sm border border-[#d4af37]/40 text-[#d4af37] px-4 py-2 font-semibold text-[10px] sm:text-[11px] tracking-[0.2em] uppercase shadow-lg shadow-black/40 transition-all duration-200 group-hover:bg-[#d4af37] group-hover:text-[#0a0a0a]">
+                Visit {gunesLanding.name} Website
+                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </span>
+            </a>
+          </div>
         </div>
         </SectionReveal>
       </div>
