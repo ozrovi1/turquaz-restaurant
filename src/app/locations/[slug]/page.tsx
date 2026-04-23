@@ -14,7 +14,9 @@ import { OrnamentalFrame } from "@/components/OrnamentalFrame";
 import { MandalaBackground } from "@/components/MandalaBackground";
 
 export async function generateStaticParams() {
-  return branches.filter((b) => !b.comingSoon).map((branch) => ({ slug: branch.slug }));
+  return branches
+    .filter((b) => !b.comingSoon || b.slug !== "trowbridge")
+    .map((branch) => ({ slug: branch.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -34,8 +36,12 @@ const sectionBgImages = {
 export default async function BranchPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const branch = getBranchBySlug(slug);
-  if (!branch || branch.comingSoon) notFound();
+  if (!branch) notFound();
+  // Trowbridge has no preview page; every other "coming soon" branch renders a limited preview.
+  if (branch.comingSoon && branch.slug === "trowbridge") notFound();
 
+  const isPreview = branch.comingSoon === true;
+  const hasPhone = branch.phone.trim().length > 0;
   const partners = getBookingPartners(branch);
   const reserve = reserveTargetForBranch(branch);
 
@@ -68,54 +74,85 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
           <h1 className="text-3xl sm:text-4xl font-medium text-[#faf8f5] mb-8">{branch.name}</h1>
           <div className="flex items-center justify-center gap-2 mb-6">
             <span className="w-8 h-px bg-[#d4a017]/40" />
-            <p className="text-[#d4a017] text-[11px] tracking-[0.3em] uppercase">♦ Visit Us ♦</p>
+            <p className="text-[#d4a017] text-[11px] tracking-[0.3em] uppercase">
+              {isPreview ? "♦ Opening Soon ♦" : "♦ Visit Us ♦"}
+            </p>
             <span className="w-8 h-px bg-[#d4a017]/40" />
           </div>
           <div className="space-y-2 text-[#faf8f5]/90 text-sm sm:text-base">
             <p>{branch.address}</p>
-            <p className="text-[#7a9e7a]">{branch.hours}</p>
+            {branch.hours && <p className="text-[#7a9e7a]">{branch.hours}</p>}
             <a href="mailto:info@turquaz.co.uk" className="block hover:text-[#d4a017] transition-colors">info@turquaz.co.uk</a>
-            <p><a href={`tel:${branch.phone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">Booking: {branch.phone}</a></p>
+            {hasPhone && (
+              <p><a href={`tel:${branch.phone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">Booking: {branch.phone}</a></p>
+            )}
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 flex-wrap">
-            {partners.length > 1 ? (
-              partners.map((p) => (
+          {isPreview ? (
+            <div className="mt-12 max-w-xl mx-auto rounded-2xl border-2 border-[#d4a017]/30 bg-[#0d1f0d]/80 px-6 py-6 sm:px-8 sm:py-7 text-center">
+              <p className="text-[#d4a017] text-[11px] tracking-[0.3em] uppercase mb-2">Coming Soon</p>
+              <p className="text-[#faf8f5]/90 text-sm leading-relaxed">
+                We&apos;re preparing to open our doors in {branch.area}. Follow us on Instagram or email us at info@turquaz.co.uk to be the first to know when reservations open.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4 mt-5">
+                {branch.instagramHandle && (
+                  <a
+                    href={`https://instagram.com/${branch.instagramHandle}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017] transition-colors"
+                  >
+                    Follow Updates
+                  </a>
+                )}
+                <a
+                  href="mailto:info@turquaz.co.uk?subject=Opening%20Updates"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547] transition-colors"
+                >
+                  Notify Me
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12 flex-wrap">
+              {partners.length > 1 ? (
+                partners.map((p) => (
+                  <Link
+                    key={p.label}
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547]"
+                  >
+                    Reserve — {p.label}
+                  </Link>
+                ))
+              ) : (
                 <Link
-                  key={p.label}
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={reserve.href}
+                  target={reserve.external ? "_blank" : undefined}
+                  rel={reserve.external ? "noopener noreferrer" : undefined}
                   className="btn-primary px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547]"
                 >
-                  Reserve — {p.label}
+                  {partners.length === 1 ? `Reserve — ${partners[0].label}` : "Reserve a Table"}
                 </Link>
-              ))
-            ) : (
-              <Link
-                href={reserve.href}
-                target={reserve.external ? "_blank" : undefined}
-                rel={reserve.external ? "noopener noreferrer" : undefined}
-                className="btn-primary px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547]"
-              >
-                {partners.length === 1 ? `Reserve — ${partners[0].label}` : "Reserve a Table"}
-              </Link>
-            )}
-            {branch.menuUrl && (
-              <Link href={branch.menuUrl} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
-                View Menu
-              </Link>
-            )}
-            {branch.uberEatsUrl && (
-              <a href={branch.uberEatsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#22c55e]/40 text-[#22c55e] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#22c55e] hover:bg-[#22c55e]/10 transition-colors">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm1-8H8V7h8v2z"/></svg>
-                Order Online
-              </a>
-            )}
-          </div>
+              )}
+              {branch.menuUrl && (
+                <Link href={branch.menuUrl} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
+                  View Menu
+                </Link>
+              )}
+              {branch.uberEatsUrl && (
+                <a href={branch.uberEatsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#22c55e]/40 text-[#22c55e] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#22c55e] hover:bg-[#22c55e]/10 transition-colors">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm1-8H8V7h8v2z"/></svg>
+                  Order Online
+                </a>
+              )}
+            </div>
+          )}
         </SectionReveal>
       </section>
 
-      {/* Book a Table - green bg only */}
+      {!isPreview && (
       <section className="relative py-20 sm:py-28 px-6 lg:px-10 overflow-hidden bg-[#0d1f0d]">
         <MandalaBackground />
         <SectionReveal className="relative z-10 max-w-4xl mx-auto">
@@ -170,6 +207,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
           </OrnamentalFrame>
         </SectionReveal>
       </section>
+      )}
 
       {/* Our Story - green bg only */}
       <section className="relative py-20 sm:py-28 px-6 lg:px-10 overflow-hidden bg-[#0d1f0d]">

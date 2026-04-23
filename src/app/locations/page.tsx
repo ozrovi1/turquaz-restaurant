@@ -36,7 +36,7 @@ export default function LocationsPage() {
         <SectionReveal>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {branches
-            .filter((b) => !b.comingSoon)
+            .filter((b) => !b.comingSoon || b.slug !== "trowbridge")
             .map((branch, i) => (
               <LocationCard
                 key={branch.slug}

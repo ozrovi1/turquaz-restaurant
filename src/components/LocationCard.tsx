@@ -19,13 +19,30 @@ interface LocationCardProps {
 export function LocationCard({ branch, withCardLink = true }: LocationCardProps) {
   if (branch.comingSoon) {
     const showDetails = branch.slug !== "trowbridge";
-    return (
-      <article className="flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 cursor-default">
-        <div className="relative aspect-[4/3] flex items-center justify-center bg-[#0d2818]">
-          <div className="text-center px-4">
-            {!showDetails && <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] mb-2">{branch.name}</h2>}
-            <p className="text-[#d4a017] text-[11px] sm:text-xs tracking-[0.2em] uppercase font-medium">Coming soon</p>
-          </div>
+    const clickable = withCardLink && showDetails;
+    const cardInner = (
+      <>
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#0d2818]">
+          {branch.imageUrl ? (
+            <>
+              <Image
+                src={branch.imageUrl}
+                alt={`Turquaz ${branch.name}`}
+                fill
+                className={`object-cover transition-transform duration-500 ${clickable ? "group-hover:scale-[1.03]" : ""}`}
+                style={{ objectPosition: "center 35%" }}
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1f0a]/95 via-[#0a1f0a]/30 to-transparent" />
+            </>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              {!showDetails && <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] px-4 text-center">{branch.name}</h2>}
+            </div>
+          )}
+          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase bg-[#0d2818]/90 text-[#d4a017] border border-[#d4a017]/40">
+            Coming Soon
+          </span>
         </div>
         {showDetails && (
           <div className="flex flex-1 flex-col p-4 sm:p-5 min-h-[140px] sm:min-h-[160px]">
@@ -33,7 +50,9 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
               {branch.area}
             </p>
             <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] leading-tight mb-2">
-              {branch.name}
+              <span className={`inline-block transition-all duration-300 ${clickable ? "group-hover:text-[#166534] border-b-2 border-transparent group-hover:border-[#d4a017]/60" : ""}`}>
+                {branch.name}
+              </span>
             </h2>
             {branch.address && (
               <p className="text-[11px] sm:text-xs text-[#e8c547]/90 line-clamp-2 leading-relaxed">
@@ -48,8 +67,32 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
                 {branch.phone}
               </p>
             )}
+            {clickable && (
+              <p className="mt-auto pt-3 text-[11px] sm:text-xs font-semibold text-[#d4a017] tracking-[0.15em] uppercase transition-colors duration-200 group-hover:text-[#f4d03f] flex items-center gap-1">
+                Preview
+                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </p>
+            )}
           </div>
         )}
+      </>
+    );
+
+    if (clickable) {
+      return (
+        <Link
+          href={`/locations/${branch.slug}`}
+          aria-label={`Preview upcoming ${branch.name} location`}
+          className="group flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_24px_rgba(212,160,23,0.12)]"
+        >
+          {cardInner}
+        </Link>
+      );
+    }
+
+    return (
+      <article className="flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 cursor-default">
+        {cardInner}
       </article>
     );
   }

@@ -3,8 +3,9 @@ import Image from "next/image";
 import { branches } from "@/data/branches";
 import { logoUrl, aboutUs, gunesLanding } from "@/data/site";
 import { LocationCard } from "@/components/LocationCard";
-import { SisterBranchCard } from "@/components/SisterBranchCard";
 import { SectionReveal } from "@/components/SectionReveal";
+
+const GUNES_WEBSITE_URL = "https://www.gunesrestaurant.uk/";
 
 export default function HomePage() {
   return (
@@ -38,7 +39,7 @@ export default function HomePage() {
               key={branch.slug}
               branch={branch}
               badge={i % 2 === 0 ? "open" : "closes"}
-              withCardLink={!branch.comingSoon}
+              withCardLink={!branch.comingSoon || branch.slug !== "trowbridge"}
             />
           ))}
         </div>
@@ -85,52 +86,44 @@ export default function HomePage() {
             <span className="w-8 h-px bg-[#d4a017]/30" />
           </div>
 
-          {/* Gunes landing page - embedded */}
-          <div className="relative rounded-2xl overflow-hidden border border-[#d4a017]/20 bg-[#081408] transition-all duration-300 hover:border-[#d4a017]/40">
+          {/* Gunes - link preview card to external website */}
+          <a
+            href={GUNES_WEBSITE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${gunesLanding.name} website`}
+            className="group relative block rounded-2xl overflow-hidden border border-[#d4a017]/20 bg-[#081408] transition-all duration-300 hover:border-[#d4a017]/50 hover:shadow-[0_0_32px_rgba(212,175,55,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]"
+          >
             <div className="absolute inset-0">
-              <div className="absolute inset-0 bg-cover bg-center blur-[3px]" style={{ backgroundImage: `url('${gunesLanding.heroBg}')` }} />
-              <div className="absolute inset-0 bg-[#081408]/70" />
+              <div
+                className="absolute inset-0 bg-cover bg-center blur-[2px] transition-transform duration-500 group-hover:scale-[1.03]"
+                style={{ backgroundImage: `url('${gunesLanding.heroBg}')` }}
+              />
+              <div className="absolute inset-0 bg-[#081408]/75" />
             </div>
-            <div className="relative z-10 px-6 py-8 sm:py-10">
-              <div className="text-center mb-6 sm:mb-8">
-                <div className="flex justify-center mb-4 sm:mb-6">
-                  <Image src={gunesLanding.logoUrl} alt={gunesLanding.name} width={280} height={90} className="h-20 sm:h-24 w-auto object-contain transition-transform duration-300 hover:scale-105" />
-                </div>
-                <p className="text-[#faf8f5]/80 text-xs sm:text-sm leading-relaxed max-w-md mx-auto mb-6">
+            <div className="relative z-10 flex flex-col sm:flex-row items-center gap-5 sm:gap-8 px-6 py-7 sm:px-10 sm:py-9">
+              <div className="shrink-0">
+                <Image
+                  src={gunesLanding.logoUrl}
+                  alt={gunesLanding.name}
+                  width={280}
+                  height={90}
+                  className="h-16 sm:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex-1 text-center sm:text-left">
+                <p className="text-[10px] sm:text-[11px] text-[#d4af37] tracking-[0.3em] uppercase mb-2">Sister Restaurant</p>
+                <h2 className="text-xl sm:text-2xl font-medium text-[#faf8f5] mb-2">{gunesLanding.name}</h2>
+                <p className="text-[#faf8f5]/80 text-xs sm:text-sm leading-relaxed max-w-md">
                   {gunesLanding.tagline}
                 </p>
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <span className="w-6 h-px bg-[#d4af37]/50" />
-                  <h2 className="text-lg sm:text-xl font-medium text-[#faf8f5]">Welcome</h2>
-                  <span className="w-6 h-px bg-[#d4af37]/50" />
-                </div>
-                <p className="text-[#d4af37]/90 text-[10px] sm:text-xs tracking-[0.25em] uppercase font-medium">Please Select Your Destination</p>
               </div>
-              <div className="grid grid-cols-2 gap-4 sm:gap-5 max-w-2xl mx-auto">
-                {gunesLanding.branches.map((branch, i) => (
-                  <SisterBranchCard key={branch.slug} branch={branch} badge={i % 2 === 0 ? "open" : "closes"} />
-                ))}
-              </div>
-              <div className="mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-[#d4af37]/10 text-center">
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <span className="w-8 h-px bg-[#d4af37]/30" />
-                  <p className="text-[11px] sm:text-[12px] text-[#d4af37] tracking-[0.25em] uppercase">Contact</p>
-                  <span className="w-8 h-px bg-[#d4af37]/30" />
-                </div>
-                <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[#faf8f5]/80 text-xs sm:text-sm">
-                  {gunesLanding.branches.map((branch) => (
-                    <span key={branch.slug} className="transition-colors duration-200 hover:text-[#d4af37] cursor-default">{branch.name}: {branch.phone}</span>
-                  ))}
-                </div>
-                <p className="mt-2 text-[#faf8f5]/80 text-xs sm:text-sm transition-colors duration-200 hover:text-[#d4af37] cursor-default">info@gunes.co.uk</p>
-                <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
-                  <a href="https://www.gunesrestaurant.uk/" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[12px] text-[#d4af37] font-medium tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547]">Locations</a>
-                  <a href="https://www.gunesrestaurant.uk/" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[12px] text-[#d4af37] font-medium tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547]">View Menu</a>
-                  <a href="https://www.gunesrestaurant.uk/" target="_blank" rel="noopener noreferrer" className="text-[11px] sm:text-[12px] text-[#d4af37] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 hover:text-[#e8c547]">Reserve a Table</a>
-                </div>
+              <div className="shrink-0 inline-flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-[#d4af37] tracking-[0.2em] uppercase transition-colors duration-200 group-hover:text-[#e8c547]">
+                Visit Website
+                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
               </div>
             </div>
-          </div>
+          </a>
         </div>
         </SectionReveal>
       </div>
