@@ -108,6 +108,24 @@ export default async function BranchMenuPage({
                 See PDF →
               </Link>
             )}
+            {branchData.wineListUrl && (
+              <Link
+                href={branchData.wineListUrl}
+                target="_blank"
+                className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
+              >
+                Wine List →
+              </Link>
+            )}
+            {branchData.cocktailsUrl && (
+              <Link
+                href={branchData.cocktailsUrl}
+                target="_blank"
+                className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
+              >
+                Cocktails →
+              </Link>
+            )}
           </div>
         </SectionReveal>
       </section>
