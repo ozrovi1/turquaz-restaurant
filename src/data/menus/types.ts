@@ -36,10 +36,13 @@ export type Category =
   | "appetizers"
   | "salads"
   | "mains"
+  | "wraps"
   | "steaks"
   | "sharing"
   | "desserts"
   | "drinks"
+  | "juices"
+  | "smoothies"
   | "sides"
   | "kids"
   | "lunch-set";
@@ -49,14 +52,19 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   appetizers: "Appetizers",
   salads: "Salads",
   mains: "Mains",
+  wraps: "Wraps",
   steaks: "Steaks",
   sharing: "Sharing Platters",
   desserts: "Desserts",
   drinks: "Drinks",
+  juices: "Fresh Juices",
+  smoothies: "Smoothies",
   sides: "Sides",
   kids: "Kids",
   "lunch-set": "Lunch Set Menu",
 };
+
+export type ServiceMode = "dinein" | "takeaway";
 
 export interface MenuItem {
   name: string;

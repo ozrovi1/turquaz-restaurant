@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import type { BranchMenu, Category, MenuItem, MenuSection } from "@/data/menus/types";
 import { ALLERGEN_LABELS, CATEGORY_LABELS } from "@/data/menus/types";
 import { OrnamentalFrame } from "@/components/OrnamentalFrame";
@@ -94,7 +95,13 @@ export function MenuRenderer({ menu }: MenuRendererProps) {
     return list;
   }, [menu.sections]);
 
-  const [activeCategory, setActiveCategory] = useState<Category>(categoriesInOrder[0]);
+  const searchParams = useSearchParams();
+  const requestedCategory = searchParams?.get("category") as Category | null;
+  const initialCategory: Category =
+    requestedCategory && categoriesInOrder.includes(requestedCategory)
+      ? requestedCategory
+      : categoriesInOrder[0];
+  const [activeCategory, setActiveCategory] = useState<Category>(initialCategory);
 
   const activeSections = menu.sections.filter((s) => s.category === activeCategory);
 
