@@ -38,7 +38,7 @@ export function MobileFloatingButton() {
         href={href}
         target={external ? "_blank" : undefined}
         rel={external ? "noopener noreferrer" : undefined}
-        className="btn-primary flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--cta-primary)] text-[#0a0a0a] text-xs font-semibold tracking-[0.15em] uppercase shadow-lg shadow-black/25 hover:bg-[var(--cta-primary-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cta-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1f0a]"
+        className="btn-primary flex items-center gap-2 px-4 py-3 rounded-full bg-[var(--cta-primary)] text-[#0a0a0a] text-xs font-semibold tracking-[0.15em] uppercase shadow-lg shadow-black/25 hover:bg-[var(--cta-primary-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cta-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#081408]"
         aria-label="Reserve a table"
       >
         Reserve

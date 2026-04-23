@@ -20,7 +20,7 @@ import { ShapedMedia } from "@/components/ShapedMedia";
  */
 export default function DemoPage() {
   return (
-    <div className="min-h-screen bg-[#0a1f0a] text-[#faf8f5] py-16 px-6">
+    <div className="min-h-screen bg-[#081408] text-[#faf8f5] py-16 px-6">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-xl font-medium text-[#d4a017] mb-8">ShapedMedia Demo</h1>
         <div className="grid sm:grid-cols-2 gap-8">

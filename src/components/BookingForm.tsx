@@ -180,7 +180,7 @@ export function BookingForm({ branchSlug, branchName, onBack }: BookingFormProps
             <select
               value={form.time}
               onChange={(e) => setForm({ ...form, time: e.target.value })}
-              className="booking-select w-full pl-3 pr-10 py-2.5 bg-[#0a1f0a]/80 border border-[#166534]/25 rounded-lg text-[#faf8f5] text-sm placeholder:text-[#faf8f5]/40 focus:outline-none focus:border-[#22c55e]/60 focus:ring-1 focus:ring-[#22c55e]/20 transition-all duration-200"
+              className="booking-select w-full pl-3 pr-10 py-2.5 bg-[#081408]/80 border border-[#166534]/25 rounded-lg text-[#faf8f5] text-sm placeholder:text-[#faf8f5]/40 focus:outline-none focus:border-[#22c55e]/60 focus:ring-1 focus:ring-[#22c55e]/20 transition-all duration-200"
               required
             >
               <option value="">Select time</option>
@@ -198,7 +198,7 @@ export function BookingForm({ branchSlug, branchName, onBack }: BookingFormProps
           <select
             value={form.guestCount}
             onChange={(e) => setForm({ ...form, guestCount: e.target.value })}
-            className="booking-select w-full pl-3 pr-10 py-2.5 bg-[#0a1f0a]/80 border border-[#166534]/25 rounded-lg text-[#faf8f5] text-sm placeholder:text-[#faf8f5]/40 focus:outline-none focus:border-[#22c55e]/60 focus:ring-1 focus:ring-[#22c55e]/20 transition-all duration-200"
+            className="booking-select w-full pl-3 pr-10 py-2.5 bg-[#081408]/80 border border-[#166534]/25 rounded-lg text-[#faf8f5] text-sm placeholder:text-[#faf8f5]/40 focus:outline-none focus:border-[#22c55e]/60 focus:ring-1 focus:ring-[#22c55e]/20 transition-all duration-200"
             required
           >
             {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
@@ -212,7 +212,7 @@ export function BookingForm({ branchSlug, branchName, onBack }: BookingFormProps
         <button
           type="submit"
           disabled={submitting}
-          className="w-full py-3 bg-[#166534] text-[#faf8f5] font-medium rounded hover:bg-[#22c55e] hover:text-[#0a1f0a] transition-colors disabled:opacity-50 text-sm"
+          className="w-full py-3 bg-[#166534] text-[#faf8f5] font-medium rounded hover:bg-[#22c55e] hover:text-[#081408] transition-colors disabled:opacity-50 text-sm"
         >
           {submitting ? "Submitting..." : "Reserve Table"}
         </button>

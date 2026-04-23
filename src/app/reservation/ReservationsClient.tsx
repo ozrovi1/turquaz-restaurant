@@ -22,7 +22,7 @@ export function ReservationsClient() {
   const partners = branch ? getBookingPartners(branch) : [];
 
   return (
-    <div className="min-h-screen bg-[#0a1f0a] text-[#faf8f5] py-16 px-6">
+    <div className="min-h-screen bg-[#081408] text-[#faf8f5] py-16 px-6">
       <div className="max-w-lg mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-2xl sm:text-3xl font-medium">Reserve a Table</h1>

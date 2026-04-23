@@ -12,10 +12,10 @@ export const metadata = {
 
 export default function LocationsPage() {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-6 sm:py-8 overflow-hidden bg-[#0a1f0a]">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-6 sm:py-8 overflow-hidden bg-[#081408]">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-cover bg-center blur-[8px] sm:blur-[12px]" style={{ backgroundImage: "url('/photos/landing-bg.png')" }} />
-        <div className="absolute inset-0 bg-[#0a1f0a]/40" aria-hidden />
+        <div className="absolute inset-0 bg-[#081408]/40" aria-hidden />
         <div className="heroOverlay" />
       </div>
 

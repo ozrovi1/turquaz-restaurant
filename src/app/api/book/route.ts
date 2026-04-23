@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
           to: emails,
           subject: `New Booking: ${customerName} — ${branch} (${date} ${time})`,
           html: `
-            <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px; background: #0a1f0a; color: #faf8f5; border-radius: 12px;">
+            <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px; background: #081408; color: #faf8f5; border-radius: 12px;">
               <h2 style="color: #22c55e; margin: 0 0 16px;">New Online Booking</h2>
               <table style="width: 100%; border-collapse: collapse;">
                 <tr><td style="padding: 8px 0; color: #7a9e7a; width: 100px;">Branch</td><td style="padding: 8px 0; color: #faf8f5;">${branch}</td></tr>

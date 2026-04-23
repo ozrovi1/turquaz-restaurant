@@ -132,7 +132,7 @@ export function ReservationCard({ reservation, onUpdate, isAdmin }: ReservationC
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Add notes..."
-            className="flex-1 px-2 py-1 bg-[#0a1f0a] border border-[#166534]/20 rounded text-xs text-[#faf8f5] focus:outline-none focus:border-[#22c55e]/40"
+            className="flex-1 px-2 py-1 bg-[#081408] border border-[#166534]/20 rounded text-xs text-[#faf8f5] focus:outline-none focus:border-[#22c55e]/40"
           />
           <button
             onClick={saveNotes}

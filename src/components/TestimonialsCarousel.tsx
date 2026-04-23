@@ -59,7 +59,7 @@ export function TestimonialsCarousel({ testimonials }: TestimonialsCarouselProps
             className="flex-shrink-0 w-full min-w-full snap-center"
             style={{ scrollSnapAlign: "center" }}
           >
-            <div className="bg-[#0d2818]/80 backdrop-blur-sm p-10 sm:p-14 lg:p-20 flex flex-col justify-center relative rounded-2xl border border-[#d4a017]/10 min-h-[320px] sm:min-h-[380px]">
+            <div className="bg-[#0d1f0d]/80 backdrop-blur-sm p-10 sm:p-14 lg:p-20 flex flex-col justify-center relative rounded-2xl border border-[#d4a017]/10 min-h-[320px] sm:min-h-[380px]">
               <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-[#d4a017]/30 rounded-tl-lg" />
               <div className="absolute bottom-4 left-4 w-16 h-16 border-l-2 border-b-2 border-[#d4a017]/30 rounded-bl-lg" />
               <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
@@ -100,7 +100,7 @@ export function TestimonialsCarousel({ testimonials }: TestimonialsCarouselProps
               aria-selected={i === activeIndex}
               aria-label={`View testimonial ${i + 1}`}
               onClick={() => scrollToSlide(i)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cta-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1f0a] ${
+              className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cta-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#081408] ${
                 i === activeIndex
                   ? "bg-[#d4a017] w-6"
                   : "bg-[#d4a017]/40 hover:bg-[#d4a017]/60"

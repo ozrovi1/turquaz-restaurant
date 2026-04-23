@@ -16,7 +16,7 @@ export default async function HomePage({
   const params = await searchParams;
   const isEmbed = params.embed === "1";
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-6 sm:py-8 overflow-hidden bg-[#0a1f0a]">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-6 sm:py-8 overflow-hidden bg-[#081408]">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-cover bg-center blur-[4px]" style={{ backgroundImage: "url('/photos/landing-bg.png')" }} />
         <div className="absolute inset-0 bg-[#d4a017]/10" aria-hidden />

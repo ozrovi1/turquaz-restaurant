@@ -22,7 +22,7 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
     const clickable = withCardLink && showDetails;
     const cardInner = (
       <>
-        <div className="relative aspect-[4/3] overflow-hidden bg-[#0d2818]">
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#0d1f0d]">
           {branch.imageUrl ? (
             <>
               <Image
@@ -33,14 +33,14 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
                 style={{ objectPosition: "center 35%" }}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1f0a]/95 via-[#0a1f0a]/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#081408]/95 via-[#081408]/30 to-transparent" />
             </>
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
               {!showDetails && <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] px-4 text-center">{branch.name}</h2>}
             </div>
           )}
-          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase bg-[#0d2818]/90 text-[#d4a017] border border-[#d4a017]/40">
+          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase bg-[#0d1f0d]/90 text-[#d4a017] border border-[#d4a017]/40">
             Coming Soon
           </span>
         </div>
@@ -83,7 +83,7 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
         <Link
           href={`/locations/${branch.slug}`}
           aria-label={`Preview upcoming ${branch.name} location`}
-          className="group flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_24px_rgba(212,160,23,0.12)]"
+          className="group flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d1f0d]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_24px_rgba(212,160,23,0.12)]"
         >
           {cardInner}
         </Link>
@@ -91,7 +91,7 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
     }
 
     return (
-      <article className="flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 cursor-default">
+      <article className="flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d1f0d]/60 shadow-lg shadow-black/20 cursor-default">
         {cardInner}
       </article>
     );
@@ -128,7 +128,7 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
   ].filter(Boolean) as { label: string; url: string }[];
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d2818]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_28px_rgba(212,160,23,0.15)]">
+    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/25 bg-[#0d1f0d]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/50 hover:shadow-[0_0_28px_rgba(212,160,23,0.15)]">
       {/* Optional stretched link: entire card → location */}
       {withCardLink && (
         <Link
@@ -151,17 +151,17 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
                 style={{ objectPosition: "center 35%" }}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a1f0a]/95 via-[#0a1f0a]/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#081408]/95 via-[#081408]/30 to-transparent" />
             </>
           ) : (
-            <div className="absolute inset-0 bg-[#0d2818]" />
+            <div className="absolute inset-0 bg-[#0d1f0d]" />
           )}
           {/* Badge */}
           <span
             className={`absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase ${
               status.isOpen
                 ? "bg-[#2d5a2d]/90 text-[#a8d4a8] border border-[#3d7a3d]/50"
-                : "bg-[#0d2818]/90 text-[#166534]/90 border border-[#d4a017]/30"
+                : "bg-[#0d1f0d]/90 text-[#166534]/90 border border-[#d4a017]/30"
             }`}
           >
             {badgeText}
@@ -225,16 +225,14 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
                 </span>
               </Link>
             )}
-            {branch.menuUrl && (
-              <Link
-                href={branch.menuUrl}
-                className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-white tracking-[0.15em] uppercase hover:text-[#faf8f5]/90 transition-colors"
-                aria-label={`View menu for ${branch.name}`}
-              >
-                View Menu
-                <span className="card-arrow" aria-hidden>→</span>
-              </Link>
-            )}
+            <Link
+              href={`/menu/${branch.slug}`}
+              className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-white tracking-[0.15em] uppercase hover:text-[#faf8f5]/90 transition-colors"
+              aria-label={`View menu for ${branch.name}`}
+            >
+              View Menu
+              <span className="card-arrow" aria-hidden>→</span>
+            </Link>
             {orderPlatforms.length > 0 && (
               <div ref={orderRef} className="relative">
                 <button
@@ -248,7 +246,7 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
                   </svg>
                 </button>
                 {orderOpen && (
-                  <div className="absolute bottom-full left-0 mb-2 min-w-[140px] rounded-lg border border-[#d4a017]/30 bg-[#0d2818]/95 backdrop-blur-sm shadow-xl shadow-black/30 py-1.5 z-50">
+                  <div className="absolute bottom-full left-0 mb-2 min-w-[140px] rounded-lg border border-[#d4a017]/30 bg-[#0d1f0d]/95 backdrop-blur-sm shadow-xl shadow-black/30 py-1.5 z-50">
                     {orderPlatforms.map((p) => (
                       <a
                         key={p.label}

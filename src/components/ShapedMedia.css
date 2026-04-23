@@ -7,7 +7,7 @@
   position: relative;
   overflow: hidden;
   border: 1px solid var(--shaped-gold);
-  background: #0a1f0a;
+  background: #081408;
   transition:
     border-color 280ms ease-out,
     box-shadow 280ms ease-out;
@@ -16,7 +16,7 @@
 .shaped-media:focus-visible {
   outline: none;
   border-color: var(--cta-primary);
-  box-shadow: 0 0 0 2px #0a1f0a, 0 0 0 4px var(--cta-primary);
+  box-shadow: 0 0 0 2px #081408, 0 0 0 4px var(--cta-primary);
 }
 
 .shaped-media:hover {

@@ -19,7 +19,7 @@ function useBranchFromPath(): string | null {
 }
 
 function buildMenuHref(branch: string | null): string {
-  return branch ? `/menu?branch=${branch}` : "/menu";
+  return branch ? `/menu/${branch}` : "/menu";
 }
 
 export function StickyHeader() {
@@ -81,7 +81,7 @@ export function StickyHeader() {
       <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
         <Link
           href="/"
-          className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cta-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a1f0a] rounded transition-opacity hover:opacity-90"
+          className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cta-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#081408] rounded transition-opacity hover:opacity-90"
           aria-label="Turquaz home"
         >
           <Image src="/logo-header.png" alt="Turquaz" width={140} height={47} className="h-8 sm:h-9 w-auto object-contain" priority />
@@ -129,7 +129,7 @@ export function StickyHeader() {
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <nav
-          className="sm:hidden border-t border-[var(--header-border)] bg-[#0a1f0a] px-4 py-4 flex flex-col gap-3"
+          className="sm:hidden border-t border-[var(--header-border)] bg-[#081408] px-4 py-4 flex flex-col gap-3"
           aria-label="Mobile navigation"
         >
           <Link

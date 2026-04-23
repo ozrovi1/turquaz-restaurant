@@ -59,12 +59,12 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
   ];
 
   return (
-    <div className="bg-[#0a1f0a] text-[#faf8f5] antialiased">
+    <div className="bg-[#081408] text-[#faf8f5] antialiased">
       {/* Visit Us - blur bg, location name, no extra photo */}
       <section className="relative py-20 sm:py-28 px-6 lg:px-10 overflow-hidden">
         <div className="absolute inset-0">
           <Image src={branch.imageUrl ?? sectionBgImages.visit} alt="" fill className="object-cover scale-[1.02] blur-sm" sizes="100vw" />
-          <div className="absolute inset-0 bg-[#0a1f0a]/70" />
+          <div className="absolute inset-0 bg-[#081408]/70" />
         </div>
         <SectionReveal className="relative z-10 max-w-6xl mx-auto text-center">
           <div className="flex justify-center mb-6">
@@ -136,11 +136,9 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                   {partners.length === 1 ? `Reserve — ${partners[0].label}` : "Reserve a Table"}
                 </Link>
               )}
-              {branch.menuUrl && (
-                <Link href={branch.menuUrl} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
-                  View Menu
-                </Link>
-              )}
+              <Link href={`/menu/${branch.slug}`} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
+                View Menu
+              </Link>
               {branch.uberEatsUrl && (
                 <a href={branch.uberEatsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#22c55e]/40 text-[#22c55e] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#22c55e] hover:bg-[#22c55e]/10 transition-colors">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm1-8H8V7h8v2z"/></svg>
@@ -172,7 +170,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                     : `Booking: ${branch.phone} or use the form below`}
               </p>
             </div>
-            <div className="rounded-2xl overflow-hidden border-2 border-[#d4a017]/20 bg-[#0a1f0a]/80 p-6 sm:p-10">
+            <div className="rounded-2xl overflow-hidden border-2 border-[#d4a017]/20 bg-[#081408]/80 p-6 sm:p-10">
               {partners.length > 0 ? (
                 <div className="text-center space-y-6 py-4">
                   <p className="text-[#faf8f5]/85 text-sm leading-relaxed max-w-md mx-auto">
@@ -223,7 +221,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
             </h2>
             <p className="text-[#faf8f5]/80 leading-relaxed mb-10 text-center">{aboutUs.content}</p>
             <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-              <div className="flex gap-4 p-4 rounded-2xl bg-[#0a1f0a]/70 border border-[#d4a017]/10">
+              <div className="flex gap-4 p-4 rounded-2xl bg-[#081408]/70 border border-[#d4a017]/10">
                 <div className="w-12 h-12 rounded-full border-2 border-[#d4a017]/40 flex items-center justify-center shrink-0">
                   <svg className="w-6 h-6 text-[#d4a017]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                 </div>
@@ -232,7 +230,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                   <p className="text-[#faf8f5]/80 text-sm">We maintain the highest standards of cleanliness and food safety.</p>
                 </div>
               </div>
-              <div className="flex gap-4 p-4 rounded-2xl bg-[#0a1f0a]/70 border border-[#d4a017]/10">
+              <div className="flex gap-4 p-4 rounded-2xl bg-[#081408]/70 border border-[#d4a017]/10">
                 <div className="w-12 h-12 rounded-xl border-2 border-[#d4a017]/40 flex items-center justify-center shrink-0">
                   <svg className="w-6 h-6 text-[#d4a017]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                 </div>
@@ -280,7 +278,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {services.map((s) => (
-                <div key={s.title} className="flex gap-4 p-5 rounded-2xl bg-[#0a1f0a]/70 border border-[#d4a017]/10">
+                <div key={s.title} className="flex gap-4 p-5 rounded-2xl bg-[#081408]/70 border border-[#d4a017]/10">
                   <div className="w-12 h-12 rounded-full border-2 border-[#d4a017]/40 flex items-center justify-center shrink-0">
                     <span className="text-[#d4a017] text-lg">✦</span>
                   </div>
@@ -299,7 +297,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
       <section className="relative py-20 sm:py-28 px-6 lg:px-10 overflow-hidden">
         <div className="absolute inset-0">
           <Image src={sectionBgImages.selections} alt="" fill className="object-cover scale-[1.02] blur-sm" sizes="100vw" />
-          <div className="absolute inset-0 bg-[#0a1f0a]/60" />
+          <div className="absolute inset-0 bg-[#081408]/60" />
         </div>
         <SectionReveal className="relative z-10 max-w-6xl mx-auto">
           <h2 className="text-center text-2xl sm:text-3xl font-medium mb-12">Delicious Selections</h2>
@@ -308,7 +306,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
               const branchImg = branch.menuImages?.[cat.id as keyof typeof branch.menuImages];
               const imgSrc = branchImg || cat.imageUrl;
               return (
-                <Link key={cat.id} href={branch.menuUrl || "/menu"} className="group block flex flex-col items-center">
+                <Link key={cat.id} href={`/menu/${branch.slug}`} className="group block flex flex-col items-center">
                   <OrnamentalFrame shape="circle" className="mb-6">
                     <div className="relative w-48 h-48 sm:w-56 sm:h-56 overflow-hidden rounded-full shadow-xl shadow-black/30">
                       <Image src={imgSrc} alt={cat.name} fill className={`object-cover group-hover:scale-105 transition-transform duration-500${cat.id === "desserts" ? " scale-150" : ""}`} sizes="(max-width: 640px) 50vw, 20vw" />

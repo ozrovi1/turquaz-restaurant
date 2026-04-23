@@ -40,10 +40,10 @@ export function InstagramFeed({
   const hasLivePosts = postUrls.length > 0;
 
   return (
-    <div className="w-full rounded-2xl border border-[#d4a017]/20 bg-[#0d2818]/80 backdrop-blur-sm overflow-hidden">
+    <div className="w-full rounded-2xl border border-[#d4a017]/20 bg-[#0d1f0d]/80 backdrop-blur-sm overflow-hidden">
       {/* Profile header */}
       <div className="flex flex-wrap items-center gap-4 sm:gap-6 px-3 py-4 sm:p-6 border-b border-[#d4a017]/10">
-        <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#d4a017]/30 shrink-0 bg-[#0a1f0a]">
+        <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-[#d4a017]/30 shrink-0 bg-[#081408]">
           <Image src="/photos/ig-profile.jpg" alt={`Turquaz ${branchName}`} fill className="object-cover" sizes="96px" />
         </div>
         <div className="flex-1 min-w-0">

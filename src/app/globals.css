@@ -3,7 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --hero-bg: #0a1f0a;
+  --hero-bg: #081408;
   --hero-text: rgba(250, 248, 245, 0.9);
   --hero-text-body: rgba(250, 248, 245, 0.8);
   /* CTA hierarchy - green (Gunes-style) + gold */
@@ -142,7 +142,7 @@
 
 .btn-primary:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px #0a1f0a, 0 0 0 4px var(--cta-primary);
+  box-shadow: 0 0 0 2px #081408, 0 0 0 4px var(--cta-primary);
 }
 
 .btn-secondary {
@@ -165,7 +165,7 @@
 
 .btn-secondary:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px #0a1f0a, 0 0 0 4px var(--cta-primary);
+  box-shadow: 0 0 0 2px #081408, 0 0 0 4px var(--cta-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -225,7 +225,7 @@
   position: relative;
   overflow: hidden;
   border: 1px solid var(--shaped-gold);
-  background: #0a1f0a;
+  background: #081408;
   transition:
     border-color 280ms ease-out,
     box-shadow 280ms ease-out;
@@ -234,7 +234,7 @@
 .shapedMedia:focus-visible {
   outline: none;
   border-color: var(--cta-primary);
-  box-shadow: 0 0 0 2px #0a1f0a, 0 0 0 4px var(--cta-primary);
+  box-shadow: 0 0 0 2px #081408, 0 0 0 4px var(--cta-primary);
 }
 
 .shapedMedia:hover {
@@ -331,7 +331,7 @@ body {
 }
 
 .booking-select option {
-  background: #0a1f0a;
+  background: #081408;
   color: #faf8f5;
 }
 

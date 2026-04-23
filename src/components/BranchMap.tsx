@@ -46,7 +46,7 @@ export function BranchMap({ center, branchName, logoUrl, address }: BranchMapPro
         html: `<div style="
           width: 48px;
           height: 48px;
-          background: #0d2818;
+          background: #0d1f0d;
           border: 2px solid rgba(212,175,55,0.6);
           border-radius: 8px;
           display: flex;
@@ -76,7 +76,7 @@ export function BranchMap({ center, branchName, logoUrl, address }: BranchMapPro
       href={mapsUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="block relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border border-[#d4a017]/20 bg-[#0a1f0a] group cursor-pointer"
+      className="block relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border border-[#d4a017]/20 bg-[#081408] group cursor-pointer"
     >
       <div
         ref={mapRef}
@@ -84,7 +84,7 @@ export function BranchMap({ center, branchName, logoUrl, address }: BranchMapPro
         aria-label={`Map showing ${branchName} location`}
       />
       <div
-        className="absolute inset-0 pointer-events-none bg-[#0a1f0a]/25 mix-blend-multiply"
+        className="absolute inset-0 pointer-events-none bg-[#081408]/25 mix-blend-multiply"
         aria-hidden
       />
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2.5 bg-[#d4a017] text-[#0a0a0a] font-semibold text-xs tracking-[0.2em] uppercase rounded-lg opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none">
