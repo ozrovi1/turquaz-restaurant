@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import type { BranchMenu, Category, MenuItem, MenuSection } from "@/data/menus/types";
 import { ALLERGEN_LABELS, CATEGORY_LABELS } from "@/data/menus/types";
@@ -102,11 +102,25 @@ export function MenuRenderer({ menu }: MenuRendererProps) {
       ? requestedCategory
       : categoriesInOrder[0];
   const [activeCategory, setActiveCategory] = useState<Category>(initialCategory);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  // Keep active category in sync with the ?category= query when the user
+  // navigates here from a Delicious Selections tile, and scroll into view.
+  useEffect(() => {
+    if (requestedCategory && categoriesInOrder.includes(requestedCategory)) {
+      setActiveCategory(requestedCategory);
+      // Defer until after render so the DOM contains the updated section.
+      const t = setTimeout(() => {
+        rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+      return () => clearTimeout(t);
+    }
+  }, [requestedCategory, categoriesInOrder]);
 
   const activeSections = menu.sections.filter((s) => s.category === activeCategory);
 
   return (
-    <div className="w-full">
+    <div ref={rootRef} className="w-full scroll-mt-20">
       {/* Category pill nav */}
       <nav className="mb-10 sm:mb-12">
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3">

@@ -100,40 +100,49 @@ export default async function BranchMenuPage({
               ← Back to {branchData.name}
             </Link>
             {branchData.menuUrl && (
-              <Link
+              <a
                 href={branchData.menuUrl}
-                target="_blank"
+                download
                 className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
               >
-                See PDF →
-              </Link>
+                Download PDF ↓
+              </a>
             )}
             {branchData.wineListUrl && (
-              <Link
+              <a
                 href={branchData.wineListUrl}
-                target="_blank"
+                download
                 className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
               >
-                Wine List →
-              </Link>
+                Wine List ↓
+              </a>
             )}
             {branchData.cocktailsUrl && (
-              <Link
+              <a
                 href={branchData.cocktailsUrl}
-                target="_blank"
+                download
                 className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
               >
-                Cocktails →
-              </Link>
+                Cocktails ↓
+              </a>
             )}
             {branchData.drinksMenuUrl && (
-              <Link
+              <a
                 href={branchData.drinksMenuUrl}
-                target="_blank"
+                download
                 className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
               >
-                Drinks →
-              </Link>
+                Drinks ↓
+              </a>
+            )}
+            {branchData.dessertMenuUrl && (
+              <a
+                href={branchData.dessertMenuUrl}
+                download
+                className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
+              >
+                Desserts ↓
+              </a>
             )}
           </div>
         </SectionReveal>

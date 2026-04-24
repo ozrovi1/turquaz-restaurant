@@ -27,6 +27,8 @@ export interface Branch {
   cocktailsUrl?: string;
   /** Per-branch combined drinks PDF (wine + drinks in one file) */
   drinksMenuUrl?: string;
+  /** Shared dessert PDF (same across Turquaz branches for now) */
+  dessertMenuUrl?: string;
   mapEmbedUrl?: string;
   imageUrl?: string;
   /** Map center: [lat, lng] */
@@ -69,6 +71,7 @@ export const branches: Branch[] = [
     menuUrl: "/menus/aldershot.pdf",
     wineListUrl: "/menus/aldershot-wine-list.pdf",
     cocktailsUrl: "/menus/aldershot-cocktails.pdf",
+    dessertMenuUrl: "/menus/desserts.pdf",
     mapCoords: [51.250, -0.770],
     instagramHandle: "turkuazrestaurantuk",
     instagramPostUrls: [
@@ -113,6 +116,7 @@ export const branches: Branch[] = [
     hours: "Mon–Sun 12:00–23:00",
     imageUrl: "/photos/feltham-exterior.png",
     menuUrl: "/menus/feltham.pdf",
+    dessertMenuUrl: "/menus/desserts.pdf",
     // TODO: wineListUrl + cocktailsUrl — waiting for Feltham-specific PDFs
     mapCoords: [51.443, -0.404],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-feltham/prhGtztKTcutUeGrdAA8VA",
@@ -151,6 +155,7 @@ export const branches: Branch[] = [
     imageUrl: "/photos/crawley-exterior.png",
     menuUrl: "/menus/crawley.pdf",
     drinksMenuUrl: "/menus/crawley-wine-drinks.pdf",
+    dessertMenuUrl: "/menus/desserts.pdf",
     mapCoords: [51.115, -0.190],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-crawley/gM2jyL2lRlqb84087MtkiA",
     deliverooUrl: "https://deliveroo.co.uk/menu/crawley/crawley/turkuaz-crawley",
