@@ -116,8 +116,9 @@ export const branches: Branch[] = [
     hours: "Mon–Sun 12:00–23:00",
     imageUrl: "/photos/feltham-exterior.png",
     menuUrl: "/menus/feltham.pdf",
+    wineListUrl: "/menus/aldershot-wine-list.pdf",
+    cocktailsUrl: "/menus/aldershot-cocktails.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
-    // TODO: wineListUrl + cocktailsUrl — waiting for Feltham-specific PDFs
     mapCoords: [51.443, -0.404],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-feltham/prhGtztKTcutUeGrdAA8VA",
     deliverooUrl: "https://deliveroo.co.uk/menu/london/feltham/turkuaz-restaurant-feltham-browells-lane",
