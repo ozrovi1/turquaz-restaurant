@@ -21,9 +21,12 @@ export interface Branch {
   /** When true, card shows only name + "Coming soon", no details, not clickable */
   comingSoon?: boolean;
   menuUrl?: string;
-  /** Shared across all Turquaz branches */
+  /** Per-branch wine list PDF */
   wineListUrl?: string;
+  /** Per-branch cocktails PDF */
   cocktailsUrl?: string;
+  /** Per-branch combined drinks PDF (wine + drinks in one file) */
+  drinksMenuUrl?: string;
   mapEmbedUrl?: string;
   imageUrl?: string;
   /** Map center: [lat, lng] */
@@ -147,7 +150,7 @@ export const branches: Branch[] = [
     hours: "Mon–Fri 12:00–22:00, Sat–Sun 12:00–23:00",
     imageUrl: "/photos/crawley-exterior.png",
     menuUrl: "/menus/crawley.pdf",
-    // TODO: wineListUrl + cocktailsUrl — waiting for Crawley-specific PDFs
+    drinksMenuUrl: "/menus/crawley-wine-drinks.pdf",
     mapCoords: [51.115, -0.190],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-crawley/gM2jyL2lRlqb84087MtkiA",
     deliverooUrl: "https://deliveroo.co.uk/menu/crawley/crawley/turkuaz-crawley",
