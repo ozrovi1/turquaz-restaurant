@@ -64,8 +64,8 @@ export const branches: Branch[] = [
     hours: "Mon–Thu 12:00–23:00, Fri–Sat 12:00–00:00, Sun 12:00–22:00",
     imageUrl: "/photos/aldershot-exterior.png",
     menuUrl: "/menus/aldershot.pdf",
-    wineListUrl: "/menus/wine-list.pdf",
-    cocktailsUrl: "/menus/cocktails-list.pdf",
+    wineListUrl: "/menus/aldershot-wine-list.pdf",
+    cocktailsUrl: "/menus/aldershot-cocktails.pdf",
     mapCoords: [51.250, -0.770],
     instagramHandle: "turkuazrestaurantuk",
     instagramPostUrls: [
@@ -110,8 +110,7 @@ export const branches: Branch[] = [
     hours: "Mon–Sun 12:00–23:00",
     imageUrl: "/photos/feltham-exterior.png",
     menuUrl: "/menus/feltham.pdf",
-    wineListUrl: "/menus/wine-list.pdf",
-    cocktailsUrl: "/menus/cocktails-list.pdf",
+    // TODO: wineListUrl + cocktailsUrl — waiting for Feltham-specific PDFs
     mapCoords: [51.443, -0.404],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-feltham/prhGtztKTcutUeGrdAA8VA",
     deliverooUrl: "https://deliveroo.co.uk/menu/london/feltham/turkuaz-restaurant-feltham-browells-lane",
@@ -148,8 +147,7 @@ export const branches: Branch[] = [
     hours: "Mon–Fri 12:00–22:00, Sat–Sun 12:00–23:00",
     imageUrl: "/photos/crawley-exterior.png",
     menuUrl: "/menus/crawley.pdf",
-    wineListUrl: "/menus/wine-list.pdf",
-    cocktailsUrl: "/menus/cocktails-list.pdf",
+    // TODO: wineListUrl + cocktailsUrl — waiting for Crawley-specific PDFs
     mapCoords: [51.115, -0.190],
     uberEatsUrl: "https://www.ubereats.com/gb/store/turkuaz-restaurant-crawley/gM2jyL2lRlqb84087MtkiA",
     deliverooUrl: "https://deliveroo.co.uk/menu/crawley/crawley/turkuaz-crawley",
