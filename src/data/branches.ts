@@ -21,6 +21,8 @@ export interface Branch {
   /** When true, card shows only name + "Coming soon", no details, not clickable */
   comingSoon?: boolean;
   menuUrl?: string;
+  /** Takeaway-specific menu PDF; falls back to menuUrl when not set */
+  takeawayMenuUrl?: string;
   /** Per-branch wine list PDF */
   wineListUrl?: string;
   /** Per-branch cocktails PDF */
@@ -69,6 +71,7 @@ export const branches: Branch[] = [
     hours: "Mon–Thu 12:00–23:00, Fri–Sat 12:00–00:00, Sun 12:00–22:00",
     imageUrl: "/photos/aldershot-exterior.png",
     menuUrl: "/menus/aldershot.pdf",
+    takeawayMenuUrl: "/menus/aldershot-takeaway.pdf",
     wineListUrl: "/menus/aldershot-wine-list.pdf",
     cocktailsUrl: "/menus/aldershot-cocktails.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
