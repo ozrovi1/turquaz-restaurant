@@ -139,10 +139,19 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
               <Link href={`/menu/${branch.slug}`} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
                 View Menu
               </Link>
+              {branch.deliverooUrl && (
+                <a href={branch.deliverooUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#00CCBC]/40 text-[#00CCBC] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#00CCBC] hover:bg-[#00CCBC]/10 transition-colors">
+                  Deliveroo
+                </a>
+              )}
               {branch.uberEatsUrl && (
-                <a href={branch.uberEatsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#22c55e]/40 text-[#22c55e] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#22c55e] hover:bg-[#22c55e]/10 transition-colors">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm1-8H8V7h8v2z"/></svg>
-                  Order Online
+                <a href={branch.uberEatsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#06C167]/40 text-[#06C167] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#06C167] hover:bg-[#06C167]/10 transition-colors">
+                  Uber Eats
+                </a>
+              )}
+              {branch.justEatUrl && (
+                <a href={branch.justEatUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#FF8000]/40 text-[#FF8000] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#FF8000] hover:bg-[#FF8000]/10 transition-colors">
+                  Just Eat
                 </a>
               )}
             </div>
