@@ -45,6 +45,8 @@ export default async function BranchMenuPage({
   if (!menu || !branchData) notFound();
 
   const categoryParam = sp.category ? `&category=${sp.category}` : "";
+  const downloadMenuUrl =
+    activeMode === "takeaway" ? branchData.takeawayMenuUrl ?? branchData.menuUrl : branchData.menuUrl;
 
   return (
     <div className="min-h-screen bg-[#081408] text-[#faf8f5]">
@@ -99,9 +101,9 @@ export default async function BranchMenuPage({
             >
               ← Back to {branchData.name}
             </Link>
-            {branchData.menuUrl && (
+            {downloadMenuUrl && (
               <a
-                href={branchData.menuUrl}
+                href={downloadMenuUrl}
                 download
                 className="text-[11px] sm:text-[12px] text-[#d4a017] font-semibold tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors"
               >
