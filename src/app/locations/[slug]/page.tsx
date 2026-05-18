@@ -27,7 +27,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const sectionBgImages = {
-  visit: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920",
   selections: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1920",
   gallery: "/gallery-bg.png",
   testimonials: "/testimonials-bg.png",
@@ -61,11 +60,13 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
   return (
     <div className="bg-[#081408] text-[#faf8f5] antialiased">
       {/* Visit Us - blur bg, location name, no extra photo */}
-      <section className="relative py-20 sm:py-28 px-6 lg:px-10 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src={branch.imageUrl ?? sectionBgImages.visit} alt="" fill className="object-cover scale-[1.02] blur-sm" sizes="100vw" />
-          <div className="absolute inset-0 bg-[#081408]/70" />
-        </div>
+      <section className="relative py-20 sm:py-28 px-6 lg:px-10 overflow-hidden bg-[#0d1f0d]">
+        {branch.imageUrl && (
+          <div className="absolute inset-0">
+            <Image src={branch.imageUrl} alt="" fill className="object-cover scale-[1.02] blur-sm" sizes="100vw" />
+            <div className="absolute inset-0 bg-[#081408]/70" />
+          </div>
+        )}
         <SectionReveal className="relative z-10 max-w-6xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <Image src={logoUrl} alt="Turquaz" width={180} height={60} className="h-12 sm:h-14 lg:h-16 w-auto object-contain opacity-95" priority />
@@ -133,7 +134,11 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                   rel={reserve.external ? "noopener noreferrer" : undefined}
                   className="btn-primary px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547]"
                 >
-                  {partners.length === 1 ? `Reserve — ${partners[0].label}` : "Reserve a Table"}
+                  {partners.length === 1
+                    ? `Reserve — ${partners[0].label}`
+                    : branch.callOnlyBooking
+                      ? "Call to Reserve"
+                      : "Reserve a Table"}
                 </Link>
               )}
               <Link href={`/menu/${branch.slug}`} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
@@ -176,7 +181,9 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                   ? `Booking: ${branch.phone}, or choose The Fork or Dojo below.`
                   : partners.length === 1
                     ? `Booking: ${branch.phone}, or reserve online below.`
-                    : `Booking: ${branch.phone} or use the form below`}
+                    : branch.callOnlyBooking
+                      ? `Call us on ${branch.phone} to book your table.`
+                      : `Booking: ${branch.phone} or use the form below`}
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden border-2 border-[#d4a017]/20 bg-[#081408]/80 p-6 sm:p-10">
@@ -206,6 +213,22 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                       {branch.phone}
                     </a>
                   </p>
+                </div>
+              ) : branch.callOnlyBooking && hasPhone ? (
+                <div className="text-center space-y-6 py-6">
+                  <svg className="w-12 h-12 mx-auto text-[#d4a017]/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <p className="text-[#faf8f5]/85 text-sm leading-relaxed max-w-md mx-auto">
+                    Reservations at {branch.name} are taken by phone. Our team will confirm your booking instantly.
+                  </p>
+                  <a
+                    href={`tel:${branch.phone.replace(/\s/g, "")}`}
+                    className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547] transition-colors"
+                  >
+                    Call {branch.phone}
+                  </a>
+                  <p className="text-[#faf8f5]/50 text-xs">{branch.hours || "Please call during opening hours."}</p>
                 </div>
               ) : (
                 <BookingForm branchSlug={branch.slug} branchName={branch.name} />

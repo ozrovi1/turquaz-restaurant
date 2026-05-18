@@ -7,11 +7,14 @@ export function getBookingPartners(branch: Branch): BookingPartnerLink[] {
 
 export function reserveTargetForBranch(branch: Branch): { href: string; external: boolean } {
   const partners = getBookingPartners(branch);
-  if (partners.length === 0) {
-    return { href: `/reservation?branch=${branch.slug}`, external: false };
-  }
   if (partners.length === 1) {
     return { href: partners[0].url, external: true };
+  }
+  if (partners.length > 1) {
+    return { href: `/reservation?branch=${branch.slug}`, external: false };
+  }
+  if (branch.callOnlyBooking && branch.phone.trim().length > 0) {
+    return { href: `tel:${branch.phone.replace(/\s/g, "")}`, external: false };
   }
   return { href: `/reservation?branch=${branch.slug}`, external: false };
 }
