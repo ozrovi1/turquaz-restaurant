@@ -43,6 +43,8 @@ export interface Branch {
   justEatUrl?: string;
   /** Instagram handle - add per branch later for live stats & photos */
   instagramHandle?: string;
+  /** When true, bookings go through the phone instead of an on-site form or partner */
+  callOnlyBooking?: boolean;
   /** Instagram post URLs for embed carousel */
   instagramPostUrls?: string[];
   /** Local thumbnail paths matching instagramPostUrls order */
@@ -183,11 +185,17 @@ export const branches: Branch[] = [
     name: "Staines",
     area: "Surrey",
     address: "Tilly's Ln, Staines TW18 4BL",
-    phone: "",
-    hours: "",
+    phone: "01784 279213",
+    hours: "Mon–Thu 12:00–23:00, Fri–Sat 12:00–00:00, Sun 12:00–22:00",
     mapCoords: [51.4339, -0.5091],
     instagramHandle: "turkuazrestaurantuk",
-    comingSoon: true,
+    callOnlyBooking: true,
+    /* No imageUrl set yet — header section keeps its solid green background. */
+    menuImages: {
+      appetizers: "/photos/aldershot-appetizers.jpg",
+      mains: "/photos/aldershot-mains.jpg",
+      desserts: "/photos/aldershot-desserts.png",
+    },
   },
   {
     slug: "eastleigh",
