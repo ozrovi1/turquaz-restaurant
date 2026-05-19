@@ -187,7 +187,7 @@ export const branches: Branch[] = [
     address: "Tilly's Ln, Staines TW18 4BL",
     phone: "01784 279213",
     hours: "Mon–Thu 12:00–23:00, Fri–Sat 12:00–00:00, Sun 12:00–22:00",
-    imageUrl: "/photos/staines-exterior.png",
+    imageUrl: "/photos/staines-exterior.jpg",
     menuUrl: "/menus/staines.pdf",
     takeawayMenuUrl: "/menus/staines-takeaway.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
