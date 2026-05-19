@@ -187,18 +187,23 @@ export const branches: Branch[] = [
     address: "Tilly's Ln, Staines TW18 4BL",
     phone: "01784 279213",
     hours: "Mon–Thu 12:00–23:00, Fri–Sat 12:00–00:00, Sun 12:00–22:00",
+    imageUrl: "/photos/staines-exterior.png",
     menuUrl: "/menus/staines.pdf",
     takeawayMenuUrl: "/menus/staines-takeaway.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
     mapCoords: [51.4339, -0.5091],
     instagramHandle: "turkuazrestaurantuk",
-    callOnlyBooking: true,
-    /* No imageUrl set yet — header section keeps its solid green background. */
     menuImages: {
       appetizers: "/photos/aldershot-appetizers.jpg",
       mains: "/photos/aldershot-mains.jpg",
       desserts: "/photos/aldershot-desserts.png",
     },
+    bookingPartners: [
+      {
+        label: "The Fork",
+        url: "https://widget.thefork.com/3eff0e3c-ebd3-4610-a94e-d039253c4ad9",
+      },
+    ],
   },
   {
     slug: "eastleigh",
