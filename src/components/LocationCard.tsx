@@ -40,8 +40,9 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
               {!showDetails && <h2 className="text-base sm:text-lg font-medium text-[#faf8f5] px-4 text-center">{branch.name}</h2>}
             </div>
           )}
-          <span className="absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase bg-[#0d1f0d]/90 text-[#d4a017] border border-[#d4a017]/40">
-            Coming Soon
+          <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[10px] font-medium tracking-wide text-white/90 shadow-sm shadow-black/20 backdrop-blur-md">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#d4a017]" />
+            <span className="font-semibold uppercase whitespace-nowrap">Coming Soon</span>
           </span>
         </div>
         {showDetails && (
@@ -117,7 +118,6 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
     return () => document.removeEventListener("mousedown", handleClick);
   }, [orderOpen]);
 
-  const badgeText = status.isOpen ? status.detail : status.label;
   const partners = getBookingPartners(branch);
   const reserve = reserveTargetForBranch(branch);
 
@@ -156,15 +156,20 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
           ) : (
             <div className="absolute inset-0 bg-[#0d1f0d]" />
           )}
-          {/* Badge */}
-          <span
-            className={`absolute top-3 right-3 px-2.5 py-1 rounded-lg text-[10px] font-medium tracking-wider uppercase ${
-              status.isOpen
-                ? "bg-[#2d5a2d]/90 text-[#a8d4a8] border border-[#3d7a3d]/50"
-                : "bg-[#0d1f0d]/90 text-[#166534]/90 border border-[#d4a017]/30"
-            }`}
-          >
-            {badgeText}
+          {/* Status badge — glass pill with a live dot, clear on any photo */}
+          <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[10px] font-medium tracking-wide text-white/90 shadow-sm shadow-black/20 backdrop-blur-md">
+            {status.isOpen ? (
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5cd65c] opacity-70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#5cd65c]" />
+              </span>
+            ) : (
+              <span className="h-1.5 w-1.5 rounded-full bg-[#d4a017]" />
+            )}
+            <span className="whitespace-nowrap">
+              <span className="font-semibold uppercase">{status.isOpen ? "Open" : "Closed"}</span>
+              {status.detail && <span className="text-white/65"> · {status.detail}</span>}
+            </span>
           </span>
         </div>
 
