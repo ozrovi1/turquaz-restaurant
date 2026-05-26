@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { legalInfo } from "@/data/legal";
 import { logoUrl } from "@/data/site";
+import { getBranchBySlug } from "@/data/branches";
 
 const legalLinks = [
   { href: "/privacy", label: "Privacy Policy" },
@@ -20,6 +24,13 @@ const siteLinks = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
+  // On a branch page (/locations/[slug] or /menu/[slug]) show that branch's
+  // own contact details; elsewhere fall back to the HQ defaults.
+  const branchSlug = pathname?.match(/^\/(?:locations|menu)\/([^/]+)/)?.[1];
+  const branch = branchSlug ? getBranchBySlug(branchSlug) : undefined;
+  const contactPhone = branch?.phone.trim() ? branch.phone : legalInfo.contactPhone;
+  const contactAddress = branch?.address ?? legalInfo.registeredOffice;
   return (
     <footer className="relative border-t border-[#d4a017]/20 bg-[#050d05] text-[#faf8f5]/80 mt-16">
       <div className="max-w-6xl mx-auto px-6 lg:px-10 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -60,6 +71,9 @@ export function Footer() {
 
         <div>
           <h3 className="text-[#d4a017] text-[11px] tracking-[0.2em] uppercase font-semibold mb-4">Contact</h3>
+          {branch && (
+            <p className="text-[12px] font-medium text-[#faf8f5]/90 mb-2">Turquaz {branch.name}</p>
+          )}
           <ul className="space-y-2 text-[12px]">
             <li>
               <a href={`mailto:${legalInfo.contactEmail}`} className="hover:text-[#d4a017] transition-colors">
@@ -67,11 +81,11 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href={`tel:${legalInfo.contactPhone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">
-                {legalInfo.contactPhone}
+              <a href={`tel:${contactPhone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">
+                {contactPhone}
               </a>
             </li>
-            <li className="text-[#faf8f5]/65 leading-relaxed">{legalInfo.registeredOffice}</li>
+            <li className="text-[#faf8f5]/65 leading-relaxed">{contactAddress}</li>
           </ul>
         </div>
       </div>
