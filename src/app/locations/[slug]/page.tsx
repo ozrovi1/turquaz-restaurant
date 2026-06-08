@@ -83,7 +83,9 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
           <div className="space-y-2 text-[#faf8f5]/90 text-sm sm:text-base">
             <p>{branch.address}</p>
             {branch.hours && <p className="text-[#7a9e7a]">{branch.hours}</p>}
-            <a href="mailto:info@turquaz.co.uk" className="block hover:text-[#d4a017] transition-colors">info@turquaz.co.uk</a>
+            {branch.email && (
+              <a href={`mailto:${branch.email}`} className="block hover:text-[#d4a017] transition-colors">{branch.email}</a>
+            )}
             {hasPhone && (
               <p><a href={`tel:${branch.phone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">Booking: {branch.phone}</a></p>
             )}
@@ -92,7 +94,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
             <div className="mt-12 max-w-xl mx-auto rounded-2xl border-2 border-[#d4a017]/30 bg-[#0d1f0d]/80 px-6 py-6 sm:px-8 sm:py-7 text-center">
               <p className="text-[#d4a017] text-[11px] tracking-[0.3em] uppercase mb-2">Coming Soon</p>
               <p className="text-[#faf8f5]/90 text-sm leading-relaxed">
-                We&apos;re preparing to open our doors in {branch.area}. Follow us on Instagram or email us at info@turquaz.co.uk to be the first to know when reservations open.
+                We&apos;re preparing to open our doors in {branch.area}. Follow us on Instagram{branch.email ? ` or email us at ${branch.email}` : ""} to be the first to know when reservations open.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 mt-5">
                 {branch.instagramHandle && (
@@ -105,12 +107,14 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                     Follow Updates
                   </a>
                 )}
-                <a
-                  href="mailto:info@turquaz.co.uk?subject=Opening%20Updates"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547] transition-colors"
-                >
-                  Notify Me
-                </a>
+                {branch.email && (
+                  <a
+                    href={`mailto:${branch.email}?subject=Opening%20Updates`}
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#d4a017] text-[#0a0a0a] font-semibold text-[12px] tracking-[0.2em] uppercase hover:bg-[#e8c547] transition-colors"
+                  >
+                    Notify Me
+                  </a>
+                )}
               </div>
             </div>
           ) : (

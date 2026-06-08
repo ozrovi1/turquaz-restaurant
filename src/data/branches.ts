@@ -17,6 +17,8 @@ export interface Branch {
   area: string;
   address: string;
   phone: string;
+  /** Per-branch contact email (e.g. staines@turkuazuk.uk) */
+  email?: string;
   hours: string;
   /** When true, card shows only name + "Coming soon", no details, not clickable */
   comingSoon?: boolean;
@@ -186,6 +188,7 @@ export const branches: Branch[] = [
     area: "Surrey",
     address: "Tilly's Ln, Staines TW18 4BL",
     phone: "01784 279213",
+    email: "staines@turkuazuk.uk",
     hours: "Mon–Thu 12:00–23:00, Fri–Sat 12:00–00:00, Sun 12:00–22:00",
     imageUrl: "/photos/staines-exterior.jpg",
     menuUrl: "/menus/staines.pdf",

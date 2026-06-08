@@ -63,9 +63,6 @@ export default function LocationsPage() {
               </a>
             ))}
           </div>
-          <a href="mailto:info@turquaz.co.uk" className="block mt-2 text-[#faf8f5]/80 text-xs sm:text-sm hover:text-[#d4a017] transition-colors">
-            info@turquaz.co.uk
-          </a>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
             <Link href="/" className="text-[11px] sm:text-[12px] text-[#d4a017] font-medium tracking-[0.15em] uppercase hover:text-[#f4d03f] transition-colors">
               Home
