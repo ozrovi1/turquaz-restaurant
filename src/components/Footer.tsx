@@ -31,6 +31,8 @@ export function Footer() {
   const branch = branchSlug ? getBranchBySlug(branchSlug) : undefined;
   const contactPhone = branch?.phone.trim() ? branch.phone : legalInfo.contactPhone;
   const contactAddress = branch?.address ?? legalInfo.registeredOffice;
+  // Only show an email when the current branch has its own; no generic fallback.
+  const contactEmail = branch?.email;
   return (
     <footer className="relative border-t border-[#d4a017]/20 bg-[#050d05] text-[#faf8f5]/80 mt-16">
       <div className="max-w-6xl mx-auto px-6 lg:px-10 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -75,11 +77,13 @@ export function Footer() {
             <p className="text-[12px] font-medium text-[#faf8f5]/90 mb-2">Turquaz {branch.name}</p>
           )}
           <ul className="space-y-2 text-[12px]">
-            <li>
-              <a href={`mailto:${legalInfo.contactEmail}`} className="hover:text-[#d4a017] transition-colors">
-                {legalInfo.contactEmail}
-              </a>
-            </li>
+            {contactEmail && (
+              <li>
+                <a href={`mailto:${contactEmail}`} className="hover:text-[#d4a017] transition-colors">
+                  {contactEmail}
+                </a>
+              </li>
+            )}
             <li>
               <a href={`tel:${contactPhone.replace(/\s/g, "")}`} className="hover:text-[#d4a017] transition-colors">
                 {contactPhone}
