@@ -200,7 +200,7 @@ export const felthamTakeawayMenu: BranchMenu = {
       name: "Sharing Platters",
       note: "All served with bread, bulgur, rice and salad",
       items: [
-        { name: "Chicken Specials", description: "Chicken Shish, Chicken Beyti and 10 pcs Chicken Wings. Add Small Cold Meze for +£12", price: "69.9", forPeople: "3" },
+        { name: "Chicken Lovers", description: "1 Skewers Chicken Shish, 1 Skewers Chicken Beyti and 10pcs Chicken Wings. Add Small Cold Meze for +£13", price: "49.90", forPeople: "2" },
         { name: "Mix Platter", description: "Lamb Shish, Chicken Shish, Chicken Beyti, Adana Kebab, 4 Lamb Ribs and 4 pcs Chicken Wings. Add Small Cold Meze for +£12", price: "65.9", forPeople: "3" },
         { name: "Turkuaz Jumbo Platter", description: "Lamb Shish, Chicken Shish, Chicken Beyti, Adana Kebab, 10 pcs Chicken Wings, 8 pcs Lamb Ribs and 4 pcs Lamb Chops. Add Large Cold Meze for +£15", price: "99.9", forPeople: "6" },
         { name: "Jumbo Mix Hot Meze", description: "Falafel, Calamari, Sigara Boregi, Crispy Prawns, Halloumi Fritters, Mozzarella Sticks, Sucuk & Halloumi", price: "35", forPeople: "4-5" },

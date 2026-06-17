@@ -538,9 +538,9 @@ export const felthamMenu: BranchMenu = {
       items: [
         {
           name: "Chicken Lovers",
-          description: "1 Skewers Chicken Shish, 1 Skewers Chicken Beyti and 10pcs Chicken Wings",
+          description: "1 Skewers Chicken Shish, 1 Skewers Chicken Beyti and 10pcs Chicken Wings. Add Small Cold Meze for +£13",
           price: "49.90",
-          forPeople: "3",
+          forPeople: "2",
         },
         {
           name: "Mix Platter",
