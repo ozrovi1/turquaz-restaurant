@@ -22,8 +22,7 @@ export default function PrivacyPolicyPage() {
           protection registration number is {legalInfo.icoRegistration}.
         </p>
         <p>
-          For any questions about this policy or how we handle your data, contact us at{" "}
-          <a href={`mailto:${legalInfo.contactEmail}`}>{legalInfo.contactEmail}</a> or {legalInfo.contactPhone}.
+          For any questions about this policy or how we handle your data, please call us on {legalInfo.contactPhone}.
         </p>
       </section>
 
@@ -100,8 +99,7 @@ export default function PrivacyPolicyPage() {
           <li>Withdraw consent where we rely on it.</li>
         </ul>
         <p>
-          To exercise any of these rights, email{" "}
-          <a href={`mailto:${legalInfo.contactEmail}`}>{legalInfo.contactEmail}</a>. We will respond within one month.
+          To exercise any of these rights, please call us on {legalInfo.contactPhone}. We will respond within one month.
         </p>
         <p>
           If you are unhappy with how we handle your data you can complain to the Information Commissioner&rsquo;s Office at{" "}

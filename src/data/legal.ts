@@ -14,8 +14,6 @@ export const legalInfo = {
   registeredOffice: "10 Westgate, Aldershot, Hampshire GU11 1WG, United Kingdom",
   /** ICO Data Protection registration number — placeholder until provided */
   icoRegistration: "[ICO Number TBC]",
-  /** Primary contact email for legal & data protection enquiries */
-  contactEmail: "info@turquaz.co.uk",
   /** Phone for general & booking enquiries (Aldershot HQ) */
   contactPhone: "01252 364141",
   /** Governing law jurisdiction */

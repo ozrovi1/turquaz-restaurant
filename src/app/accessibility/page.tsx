@@ -52,7 +52,6 @@ export default function AccessibilityPage() {
           plain text, audio etc.), please contact us:
         </p>
         <ul>
-          <li>Email: <a href={`mailto:${legalInfo.contactEmail}`}>{legalInfo.contactEmail}</a></li>
           <li>Phone: {legalInfo.contactPhone}</li>
         </ul>
         <p>We aim to respond within five working days.</p>

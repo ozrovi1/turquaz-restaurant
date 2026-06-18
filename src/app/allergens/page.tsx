@@ -86,8 +86,7 @@ export default function AllergensPage() {
         <h2>6. Reporting an issue</h2>
         <p>
           If you believe an allergen statement we provided was incorrect, or if you have suffered an allergic reaction after
-          eating with us, please contact us as soon as possible at{" "}
-          <a href={`mailto:${legalInfo.contactEmail}`}>{legalInfo.contactEmail}</a> or call {legalInfo.contactPhone}. We take
+          eating with us, please call us as soon as possible on {legalInfo.contactPhone}. We take
           every report seriously and investigate it.
         </p>
       </section>

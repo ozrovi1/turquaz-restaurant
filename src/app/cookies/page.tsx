@@ -83,8 +83,7 @@ export default function CookiePolicyPage() {
         <h2>5. More information</h2>
         <p>
           For more on how we handle personal data, please see our <Link href="/privacy">Privacy Policy</Link>. If you have
-          questions about this Cookie Policy, contact us at{" "}
-          <a href={`mailto:${legalInfo.contactEmail}`}>{legalInfo.contactEmail}</a>.
+          questions about this Cookie Policy, please call us on {legalInfo.contactPhone}.
         </p>
       </section>
     </LegalLayout>
