@@ -98,6 +98,17 @@ export function Footer() {
         <div className="max-w-6xl mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row gap-2 sm:gap-6 items-center justify-between text-[11px] text-[#faf8f5]/55">
           <p>© {year} {legalInfo.legalEntity}. All rights reserved.</p>
           <p>Company No. {legalInfo.companyNumber} · Registered in {legalInfo.jurisdiction}</p>
+          <p>
+            Designed &amp; built by{" "}
+            <a
+              href="https://www.webgallery.co.uk"
+              target="_blank"
+              rel="noopener"
+              className="text-[#d4a017]/90 hover:text-[#d4a017] underline-offset-2 hover:underline transition-colors"
+            >
+              Web Gallery
+            </a>
+          </p>
         </div>
       </div>
     </footer>
