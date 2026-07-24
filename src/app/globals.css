@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Site is dark-themed throughout — body must match #081408 so footer/section margins never flash white */
+  --background: #081408;
+  --foreground: #faf8f5;
   --hero-bg: #081408;
   --hero-text: rgba(250, 248, 245, 0.9);
   --hero-text-body: rgba(250, 248, 245, 0.8);
@@ -28,8 +29,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #081408;
+    --foreground: #faf8f5;
   }
 }
 
