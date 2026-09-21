@@ -8,6 +8,8 @@ import { felthamTakeawayMenu } from "./feltham-takeaway";
 import { stainesTakeawayMenu } from "./staines-takeaway";
 import { crawleyLeisureParkMenu } from "./crawley-leisure-park";
 import { crawleyLeisureParkTakeawayMenu } from "./crawley-leisure-park-takeaway";
+import { eastleighMenu } from "./eastleigh";
+import { eastleighTakeawayMenu } from "./eastleigh-takeaway";
 
 export const branchMenus: Record<string, BranchMenu> = {
   aldershot: aldershotMenu,
@@ -15,6 +17,7 @@ export const branchMenus: Record<string, BranchMenu> = {
   crawley: crawleyMenu,
   staines: stainesMenu,
   "crawley-leisure-park": crawleyLeisureParkMenu,
+  eastleigh: eastleighMenu,
 };
 
 export const branchTakeawayMenus: Record<string, BranchMenu> = {
@@ -22,6 +25,7 @@ export const branchTakeawayMenus: Record<string, BranchMenu> = {
   feltham: felthamTakeawayMenu,
   staines: stainesTakeawayMenu,
   "crawley-leisure-park": crawleyLeisureParkTakeawayMenu,
+  eastleigh: eastleighTakeawayMenu,
 };
 
 export function getBranchMenu(slug: string, mode: ServiceMode = "dinein"): BranchMenu | undefined {
@@ -31,6 +35,11 @@ export function getBranchMenu(slug: string, mode: ServiceMode = "dinein"): Branc
 
 export function hasTakeaway(slug: string): boolean {
   return slug in branchTakeawayMenus;
+}
+
+/** True when /menu/[branch] will render for this slug. Branches without menu data must not link there. */
+export function hasMenu(slug: string): boolean {
+  return slug in branchMenus;
 }
 
 export * from "./types";
