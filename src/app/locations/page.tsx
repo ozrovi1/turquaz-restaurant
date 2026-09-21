@@ -7,7 +7,7 @@ import { SectionReveal } from "@/components/SectionReveal";
 
 export const metadata = {
   title: "Locations | Turquaz",
-  description: "Find your nearest Turquaz restaurant. Four locations across the UK.",
+  description: "Find your nearest Turquaz restaurant. Locations across the UK.",
 };
 
 export default function LocationsPage() {

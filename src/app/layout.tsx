@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Turquaz | Turkish Kitchen Across the UK",
-  description: "Authentic Turkish and Mediterranean cuisine at four locations across the UK.",
+  description: "Authentic Turkish and Mediterranean cuisine at locations across the UK.",
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",

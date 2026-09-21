@@ -3,7 +3,7 @@ export const logoUrl = "/logo.png";
 export const aboutUs = {
   title: "About Us",
   content: "Turquaz has been serving authentic Turkish and Mediterranean cuisine since our first location opened. We are dedicated to sharing the comforting and fresh flavours of our heritage. Every dish is prepared with care, using the finest ingredients and traditional recipes passed down through generations.",
-  short: "Authentic Turkish and Mediterranean cuisine at four locations across the UK.",
+  short: "Authentic Turkish and Mediterranean cuisine at locations across the UK.",
 };
 
 /** Paste your booking app embed URL or iframe src here */
