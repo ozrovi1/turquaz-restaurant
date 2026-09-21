@@ -6,6 +6,7 @@ import { logoUrl, aboutUs } from "@/data/site";
 import { BookingForm } from "@/components/BookingForm";
 import { getBookingPartners, reserveTargetForBranch } from "@/utils/reserveLinks";
 import { menuCategories } from "@/data/menu";
+import { hasMenu } from "@/data/menus";
 import { SectionReveal } from "@/components/SectionReveal";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { InstagramFeed } from "@/components/InstagramFeed";
@@ -41,6 +42,8 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
 
   const isPreview = branch.comingSoon === true;
   const hasPhone = branch.phone.trim().length > 0;
+  // Branches without structured menu data have no /menu/[branch] page — never link there.
+  const menuLinked = hasMenu(branch.slug);
   const partners = getBookingPartners(branch);
   const reserve = reserveTargetForBranch(branch);
 
@@ -145,9 +148,11 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                       : "Reserve a Table"}
                 </Link>
               )}
-              <Link href={`/menu/${branch.slug}`} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
-                View Menu
-              </Link>
+              {menuLinked && (
+                <Link href={`/menu/${branch.slug}`} className="btn-secondary px-8 py-3.5 rounded-lg border-2 border-[#d4a017]/40 text-[#faf8f5] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017]">
+                  View Menu
+                </Link>
+              )}
               {branch.deliverooUrl && (
                 <a href={branch.deliverooUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border-2 border-[#00CCBC]/40 text-[#00CCBC] font-medium text-[12px] tracking-[0.2em] uppercase hover:border-[#00CCBC] hover:bg-[#00CCBC]/10 transition-colors">
                   Deliveroo
@@ -341,8 +346,8 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
             {menuCategories.map((cat) => {
               const branchImg = branch.menuImages?.[cat.id as keyof typeof branch.menuImages];
               const imgSrc = branchImg || cat.imageUrl;
-              return (
-                <Link key={cat.id} href={`/menu/${branch.slug}?category=${cat.id}`} className="group block flex flex-col items-center">
+              const inner = (
+                <>
                   <OrnamentalFrame shape="circle" className="mb-6">
                     <div className="relative w-48 h-48 sm:w-56 sm:h-56 overflow-hidden rounded-full shadow-xl shadow-black/30">
                       <Image src={imgSrc} alt={cat.name} fill className={`object-cover group-hover:scale-105 transition-transform duration-500${cat.id === "desserts" ? " scale-150" : ""}`} sizes="(max-width: 640px) 50vw, 20vw" />
@@ -350,8 +355,19 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
                   </OrnamentalFrame>
                   <h3 className="text-[#d4a017] text-lg font-medium text-center mb-2">{cat.name}</h3>
                   <p className="text-[#faf8f5]/80 text-sm text-center mb-4">{cat.description}</p>
-                  <p className="text-[#d4a017]/90 text-xs tracking-[0.2em] uppercase text-center">View Menu</p>
+                  {menuLinked && (
+                    <p className="text-[#d4a017]/90 text-xs tracking-[0.2em] uppercase text-center">View Menu</p>
+                  )}
+                </>
+              );
+              return menuLinked ? (
+                <Link key={cat.id} href={`/menu/${branch.slug}?category=${cat.id}`} className="group block flex flex-col items-center">
+                  {inner}
                 </Link>
+              ) : (
+                <div key={cat.id} className="group block flex flex-col items-center">
+                  {inner}
+                </div>
               );
             })}
           </div>

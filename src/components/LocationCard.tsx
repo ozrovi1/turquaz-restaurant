@@ -7,6 +7,8 @@ import { useState, useEffect, useRef } from "react";
 import type { Branch } from "@/data/branches";
 import { getOpenStatus } from "@/utils/openStatus";
 import { getBookingPartners, reserveTargetForBranch } from "@/utils/reserveLinks";
+import { hasMenu } from "@/data/menus";
+import { BranchImagePlaceholder } from "./BranchImagePlaceholder";
 
 interface LocationCardProps {
   branch: Branch;
@@ -154,7 +156,7 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
               <div className="absolute inset-0 bg-gradient-to-t from-[#081408]/95 via-[#081408]/30 to-transparent" />
             </>
           ) : (
-            <div className="absolute inset-0 bg-[#0d1f0d]" />
+            <BranchImagePlaceholder />
           )}
           {/* Badge */}
           <span
@@ -225,14 +227,16 @@ export function LocationCard({ branch, withCardLink = true }: LocationCardProps)
                 </span>
               </Link>
             )}
-            <Link
-              href={`/menu/${branch.slug}`}
-              className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-white tracking-[0.15em] uppercase hover:text-[#faf8f5]/90 transition-colors"
-              aria-label={`View menu for ${branch.name}`}
-            >
-              View Menu
-              <span className="card-arrow" aria-hidden>→</span>
-            </Link>
+            {hasMenu(branch.slug) && (
+              <Link
+                href={`/menu/${branch.slug}`}
+                className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-white tracking-[0.15em] uppercase hover:text-[#faf8f5]/90 transition-colors"
+                aria-label={`View menu for ${branch.name}`}
+              >
+                View Menu
+                <span className="card-arrow" aria-hidden>→</span>
+              </Link>
+            )}
             {orderPlatforms.length > 0 && (
               <div ref={orderRef} className="relative">
                 <button

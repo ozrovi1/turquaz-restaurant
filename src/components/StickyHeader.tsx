@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { isExternalReserveForSlug, reserveHrefForSlug } from "@/utils/reserveLinks";
+import { hasMenu } from "@/data/menus";
 
 const SCROLL_THRESHOLD = 80;
 
@@ -19,7 +20,8 @@ function useBranchFromPath(): string | null {
 }
 
 function buildMenuHref(branch: string | null): string {
-  return branch ? `/menu/${branch}` : "/menu";
+  // Branches without structured menu data have no /menu/[branch] page — fall back to the index.
+  return branch && hasMenu(branch) ? `/menu/${branch}` : "/menu";
 }
 
 export function StickyHeader() {
