@@ -58,7 +58,7 @@ export interface Branch {
   /** Branch-specific menu category images */
   menuImages?: { appetizers?: string; mains?: string; desserts?: string };
   /**
-   * Per-branch optional external booking (e.g. The Fork + Dojo). Only Aldershot uses this today.
+   * Per-branch optional external booking (e.g. The Fork + Dojo).
    * One link → opens in a new tab; two+ → /reservation?branch=… to pick a platform.
    * Omit on other branches → internal booking form only.
    */
@@ -243,6 +243,12 @@ export const branches: Branch[] = [
     mapCoords: [50.9670, -1.3537],
     deliverooUrl: "https://deliveroo.co.uk/menu/southampton/eastleigh-central/turkuaz-eastleigh",
     instagramHandle: "turkuazrestaurantuk",
+    bookingPartners: [
+      {
+        label: "Dojo",
+        url: "https://web.dojo.app/create_booking/vendor/tA_Mi1XbDb9_uO2dde9GiilU-7YEMJ1XhGbkcBYwFK4_restaurant",
+      },
+    ],
   },
   {
     slug: "trowbridge",
