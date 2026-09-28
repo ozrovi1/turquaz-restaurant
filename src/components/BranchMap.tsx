@@ -37,9 +37,11 @@ export function BranchMap({ center, branchName, logoUrl, address }: BranchMapPro
       }).setView(center, 15);
       mapInstanceRef.current = map;
 
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      }).addTo(map);
+      // Esri dark canvas: keyless. CARTO basemaps started returning an "API KEY REQUIRED" tile (Sep 2026).
+      const esri = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas";
+      const attribution = "Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors";
+      L.tileLayer(`${esri}/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`, { attribution, maxZoom: 16 }).addTo(map);
+      L.tileLayer(`${esri}/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}`, { maxZoom: 16 }).addTo(map);
 
       const logoIcon = L.divIcon({
         className: "branch-map-marker",
