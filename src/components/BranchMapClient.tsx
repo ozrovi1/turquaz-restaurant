@@ -11,7 +11,8 @@ interface BranchMapClientProps {
   center: [number, number];
   branchName: string;
   logoUrl: string;
-  address?: string;
+  /** Google Maps profile link, see googleMapsUrlFor() */
+  mapsUrl: string;
 }
 
 export function BranchMapClient(props: BranchMapClientProps) {

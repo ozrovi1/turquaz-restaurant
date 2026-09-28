@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getBranchBySlug, branches } from "@/data/branches";
+import { getBranchBySlug, branches, googleMapsUrlFor } from "@/data/branches";
 import { logoUrl, aboutUs } from "@/data/site";
 import { BookingForm } from "@/components/BookingForm";
 import { getBookingPartners, reserveTargetForBranch } from "@/utils/reserveLinks";
@@ -393,7 +393,7 @@ export default async function BranchPage({ params }: { params: Promise<{ slug: s
             center={branch.mapCoords ?? [51.5, -0.1]}
             branchName={`Turquaz ${branch.name}`}
             logoUrl={logoUrl}
-            address={branch.address}
+            mapsUrl={googleMapsUrlFor(branch)}
           />
         </SectionReveal>
       </section>

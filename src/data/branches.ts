@@ -35,8 +35,14 @@ export interface Branch {
   dessertMenuUrl?: string;
   mapEmbedUrl?: string;
   imageUrl?: string;
-  /** Map center: [lat, lng] */
+  /** Map center: [lat, lng], copied from the branch's Google Maps profile */
   mapCoords?: [number, number];
+  /**
+   * Google Maps business ID (CID, decimal). "Open in Maps" uses it to land on the
+   * restaurant's own profile instead of a bare address search.
+   * Found from the profile URL's `!1s0x…:0x<hex>` part; CID = that hex as decimal.
+   */
+  googleMapsCid?: string;
   /** Uber Eats order URL — currently disabled across UK branches */
   uberEatsUrl?: string;
   /** Deliveroo order URL */
@@ -79,7 +85,8 @@ export const branches: Branch[] = [
     wineListUrl: "/menus/aldershot-wine-list.pdf",
     cocktailsUrl: "/menus/aldershot-cocktails.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
-    mapCoords: [51.250, -0.770],
+    mapCoords: [51.2495948, -0.7682671],
+    googleMapsCid: "1855568575959319006",
     instagramHandle: "turkuazrestaurantuk",
     instagramPostUrls: [
       "https://www.instagram.com/p/DUApAjBjGN2/",
@@ -125,7 +132,8 @@ export const branches: Branch[] = [
     wineListUrl: "/menus/aldershot-wine-list.pdf",
     cocktailsUrl: "/menus/aldershot-cocktails.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
-    mapCoords: [51.443, -0.404],
+    mapCoords: [51.4436121, -0.406419],
+    googleMapsCid: "10213188478562306223",
     deliverooUrl: "https://deliveroo.co.uk/menu/london/feltham/turkuaz-restaurant-feltham-browells-lane",
     justEatUrl: "https://www.just-eat.co.uk/restaurants-turkuaz-restaurant-feltham-feltham/menu",
     instagramHandle: "turkuazrestaurantuk",
@@ -162,7 +170,8 @@ export const branches: Branch[] = [
     menuUrl: "/menus/crawley.pdf",
     drinksMenuUrl: "/menus/crawley-wine-drinks.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
-    mapCoords: [51.115, -0.190],
+    mapCoords: [51.1144949, -0.1900434],
+    googleMapsCid: "13192845108554472432",
     deliverooUrl: "https://deliveroo.co.uk/menu/crawley/crawley/turkuaz-crawley",
     justEatUrl: "https://www.just-eat.co.uk/restaurants-turkuaz-restaurant-crawley-crawley/menu",
     instagramHandle: "turkuazrestaurantuk",
@@ -194,7 +203,8 @@ export const branches: Branch[] = [
     menuUrl: "/menus/staines.pdf",
     takeawayMenuUrl: "/menus/staines-takeaway.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
-    mapCoords: [51.4339, -0.5091],
+    mapCoords: [51.4339279, -0.5120359],
+    googleMapsCid: "12825934673181739732",
     instagramHandle: "turkuazrestaurantuk",
     menuImages: {
       appetizers: "/photos/aldershot-appetizers.jpg",
@@ -220,7 +230,8 @@ export const branches: Branch[] = [
     menuUrl: "/menus/crawley-leisure-park.pdf",
     takeawayMenuUrl: "/menus/crawley-leisure-park-takeaway.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
-    mapCoords: [51.1196, -0.1780],
+    mapCoords: [51.1200349, -0.1891324],
+    googleMapsCid: "13431300579789532360",
     instagramHandle: "turkuazrestaurantuk",
     bookingPartners: [
       {
@@ -240,7 +251,8 @@ export const branches: Branch[] = [
     menuUrl: "/menus/eastleigh.pdf",
     takeawayMenuUrl: "/menus/eastleigh-takeaway.pdf",
     dessertMenuUrl: "/menus/desserts.pdf",
-    mapCoords: [50.9670, -1.3537],
+    mapCoords: [50.9670238, -1.3536761],
+    googleMapsCid: "1518309047971144593",
     deliverooUrl: "https://deliveroo.co.uk/menu/southampton/eastleigh-central/turkuaz-eastleigh",
     instagramHandle: "turkuazrestaurantuk",
     bookingPartners: [
@@ -261,6 +273,13 @@ export const branches: Branch[] = [
     comingSoon: true,
   },
 ];
+
+/** Link to the branch's Google Maps profile; falls back to a name + address search. */
+export function googleMapsUrlFor(branch: Branch): string {
+  if (branch.googleMapsCid) return `https://www.google.com/maps?cid=${branch.googleMapsCid}`;
+  const query = `Turquaz ${branch.name}, ${branch.address}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
 
 export function getBranchBySlug(slug: string): Branch | undefined {
   return branches.find((b) => b.slug === slug);

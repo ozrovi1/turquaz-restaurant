@@ -8,11 +8,11 @@ interface BranchMapProps {
   center: [number, number];
   branchName: string;
   logoUrl: string;
-  address?: string;
+  /** Google Maps profile link, see googleMapsUrlFor() */
+  mapsUrl: string;
 }
 
-export function BranchMap({ center, branchName, logoUrl, address }: BranchMapProps) {
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address || branchName)}`;
+export function BranchMap({ center, branchName, logoUrl, mapsUrl }: BranchMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<LeafletMap | null>(null);
 
