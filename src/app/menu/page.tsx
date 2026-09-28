@@ -4,14 +4,29 @@ import { branches } from "@/data/branches";
 import { branchMenus } from "@/data/menus";
 import { logoUrl, aboutUs } from "@/data/site";
 import { SectionReveal } from "@/components/SectionReveal";
+import { christmasMenu, isChristmasMenuActive } from "@/data/seasonal/christmas";
 
 export const metadata = {
   title: "Menu | Turquaz",
   description: "Browse our menus by location. Authentic Turkish and Mediterranean cuisine at Turquaz branches.",
 };
 
-export default function MenuPickerPage() {
+const PILL_ACTIVE =
+  "px-5 py-2 rounded-full bg-[#d4a017] text-[#081408] text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] uppercase shadow-md shadow-black/30 transition-colors";
+const PILL_IDLE =
+  "px-5 py-2 rounded-full text-[#faf8f5]/80 text-[10px] sm:text-[11px] font-medium tracking-[0.2em] uppercase hover:text-[#d4a017] transition-colors";
+
+export default async function MenuPickerPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ mode?: string }>;
+}) {
+  const sp = await searchParams;
   const bookableBranches = branches.filter((b) => branchMenus[b.slug]);
+  const christmasOn = isChristmasMenuActive();
+  const christmas = christmasOn && sp.mode === "christmas";
+  const branchQuery = christmas ? "?mode=christmas" : "";
+  const lowestPrice = christmasMenu.prices[0].amount;
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-10 sm:py-14 overflow-hidden bg-[#081408]">
@@ -32,6 +47,21 @@ export default function MenuPickerPage() {
             <h1 className="text-lg sm:text-xl font-medium text-[#faf8f5] [text-shadow:0_1px_3px_rgba(0,0,0,0.6)]">Menu</h1>
             <span className="w-6 h-px bg-[#d4a017]/50" />
           </div>
+          {christmasOn && (
+            <div className="mt-2 inline-flex items-center gap-0 p-1 rounded-full border border-[#d4a017]/40 bg-[#0d1f0d]/70 backdrop-blur-sm">
+              <Link href="/menu" aria-pressed={!christmas} className={christmas ? PILL_IDLE : PILL_ACTIVE}>
+                À la carte
+              </Link>
+              <Link href="/menu?mode=christmas" aria-pressed={christmas} className={christmas ? PILL_ACTIVE : PILL_IDLE}>
+                Christmas Set Menu
+              </Link>
+            </div>
+          )}
+          {christmas && (
+            <p className="text-[#faf8f5]/80 text-xs sm:text-sm [text-shadow:0_1px_3px_rgba(0,0,0,0.6)]">
+              Festive set menu from £{lowestPrice} per person.
+            </p>
+          )}
           <p className="text-[#d4a017]/90 text-[10px] sm:text-xs tracking-[0.25em] uppercase font-medium [text-shadow:0_1px_3px_rgba(0,0,0,0.6)]">Choose your branch</p>
         </div>
 
@@ -40,7 +70,7 @@ export default function MenuPickerPage() {
             {bookableBranches.map((branch) => (
               <Link
                 key={branch.slug}
-                href={`/menu/${branch.slug}`}
+                href={`/menu/${branch.slug}${branchQuery}`}
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#d4a017]/30 bg-[#0d1f0d]/60 shadow-lg shadow-black/20 transition-all duration-300 hover:scale-[1.02] hover:border-[#d4a017]/70 hover:shadow-[0_0_28px_rgba(212,160,23,0.18)]"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -68,7 +98,7 @@ export default function MenuPickerPage() {
                     {branch.name}
                   </h2>
                   <p className="inline-flex items-center gap-1 text-[11px] sm:text-xs font-semibold text-[#d4a017] tracking-[0.15em] uppercase">
-                    View Menu
+                    {christmas ? "View Christmas Menu" : "View Menu"}
                     <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                   </p>
                 </div>

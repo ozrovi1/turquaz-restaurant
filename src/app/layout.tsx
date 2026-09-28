@@ -5,6 +5,7 @@ import { StickyHeader } from "@/components/StickyHeader";
 import { MobileFloatingButton } from "@/components/MobileFloatingButton";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
+import { ChristmasPopup } from "@/components/ChristmasPopup";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <Footer />
         <MobileFloatingButton />
         <CookieConsent />
+        <ChristmasPopup />
       </body>
     </html>
   );
