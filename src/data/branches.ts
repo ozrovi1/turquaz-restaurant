@@ -213,8 +213,8 @@ export const branches: Branch[] = [
     },
     bookingPartners: [
       {
-        label: "The Fork",
-        url: "https://widget.thefork.com/3eff0e3c-ebd3-4610-a94e-d039253c4ad9",
+        label: "Dojo",
+        url: "https://web.dojo.app/create_booking/vendor/n3OtFBK6_0nBWR8T_U7ninQHgkAdE0mJ_35fK4bL9DE_restaurant",
       },
     ],
   },
