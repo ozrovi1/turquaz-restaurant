@@ -10,6 +10,8 @@ import { crawleyLeisureParkMenu } from "./crawley-leisure-park";
 import { crawleyLeisureParkTakeawayMenu } from "./crawley-leisure-park-takeaway";
 import { eastleighMenu } from "./eastleigh";
 import { eastleighTakeawayMenu } from "./eastleigh-takeaway";
+import { trowbridgeMenu } from "./trowbridge";
+import { trowbridgeTakeawayMenu } from "./trowbridge-takeaway";
 
 export const branchMenus: Record<string, BranchMenu> = {
   aldershot: aldershotMenu,
@@ -18,6 +20,7 @@ export const branchMenus: Record<string, BranchMenu> = {
   staines: stainesMenu,
   "crawley-leisure-park": crawleyLeisureParkMenu,
   eastleigh: eastleighMenu,
+  trowbridge: trowbridgeMenu,
 };
 
 export const branchTakeawayMenus: Record<string, BranchMenu> = {
@@ -26,6 +29,7 @@ export const branchTakeawayMenus: Record<string, BranchMenu> = {
   staines: stainesTakeawayMenu,
   "crawley-leisure-park": crawleyLeisureParkTakeawayMenu,
   eastleigh: eastleighTakeawayMenu,
+  trowbridge: trowbridgeTakeawayMenu,
 };
 
 export function getBranchMenu(slug: string, mode: ServiceMode = "dinein"): BranchMenu | undefined {
