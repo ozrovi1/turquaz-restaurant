@@ -4,13 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChristmasMenuCard } from "@/components/ChristmasMenuCard";
+import { ChristmasPopupTeaser } from "@/components/ChristmasPopupTeaser";
 import { christmasMenu, isChristmasMenuActive } from "@/data/seasonal/christmas";
 import { getBranchBySlug } from "@/data/branches";
 import { reserveTargetForBranch } from "@/utils/reserveLinks";
 
-const SEEN_KEY = "turquaz-christmas-popup-seen";
+/** Keyed by season start so a re-dated season greets everyone once more. */
+const SEEN_KEY = `turquaz-christmas-popup-seen:${christmasMenu.activeFrom}`;
 const OPEN_DELAY_MS = 1200;
 const HEADING_ID = "christmas-popup-title";
+const COMPACT_QUERY = "(max-width: 639px)";
 
 /** Only greet visitors on the home page and branch pages; never interrupt menus, booking or legal pages. */
 function branchSlugFor(pathname: string): string | null | undefined {
@@ -20,9 +23,10 @@ function branchSlugFor(pathname: string): string | null | undefined {
   return undefined;
 }
 
+/** Once per visitor per device: persists across tabs and visits, not just the current session. */
 function alreadySeen(): boolean {
   try {
-    return window.sessionStorage.getItem(SEEN_KEY) === "1";
+    return window.localStorage.getItem(SEEN_KEY) === "1";
   } catch {
     return false;
   }
@@ -30,16 +34,21 @@ function alreadySeen(): boolean {
 
 function markSeen(): void {
   try {
-    window.sessionStorage.setItem(SEEN_KEY, "1");
+    window.localStorage.setItem(SEEN_KEY, "1");
   } catch {
-    // Storage blocked (private mode): the popup may show again next page, which is acceptable.
+    // Storage blocked (private mode): the popup may show again next visit, which is acceptable.
   }
+}
+
+function isCompactViewport(): boolean {
+  return window.matchMedia(COMPACT_QUERY).matches;
 }
 
 export function ChristmasPopup() {
   const pathname = usePathname();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
+  const [compact, setCompact] = useState(false);
   const slug = branchSlugFor(pathname);
   const eligible = slug !== undefined;
 
@@ -47,6 +56,7 @@ export function ChristmasPopup() {
     if (!eligible || !isChristmasMenuActive() || alreadySeen()) return;
     const t = window.setTimeout(() => {
       markSeen();
+      setCompact(isCompactViewport());
       setOpen(true);
     }, OPEN_DELAY_MS);
     return () => window.clearTimeout(t);
@@ -100,32 +110,38 @@ export function ChristmasPopup() {
           </svg>
         </button>
 
-        <div className="overflow-y-auto overscroll-contain rounded-sm">
-          <ChristmasMenuCard headingId={HEADING_ID} />
-        </div>
+        {compact ? (
+          <ChristmasPopupTeaser headingId={HEADING_ID} />
+        ) : (
+          <div className="min-h-0 overflow-y-auto overscroll-contain rounded-sm">
+            <ChristmasMenuCard headingId={HEADING_ID} />
+          </div>
+        )}
 
-        <div className="mt-3 grid grid-cols-[1fr_auto] sm:flex gap-2">
-          <a
-            href={reserve.href}
-            {...(reserve.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="col-span-2 sm:flex-1 text-center px-5 py-3 rounded-lg bg-[#d4a017] text-[#081408] text-[11px] font-semibold tracking-[0.2em] uppercase hover:bg-[#e8c547] transition-colors"
-          >
-            {branch ? `Book at ${branch.name}` : "Book a table"}
-          </a>
+        <div className="mt-3 flex flex-col sm:flex-row gap-2">
           <Link
             href={menuHref}
             onClick={close}
-            className="flex-1 text-center px-5 py-3 rounded-lg border border-[#d4a017]/60 bg-[#081408]/80 text-[#faf8f5] text-[11px] font-medium tracking-[0.2em] uppercase hover:border-[#d4a017] hover:text-[#d4a017] transition-colors"
+            className={`${compact ? "order-1 bg-[#d4a017] text-[#081408] hover:bg-[#e8c547]" : "order-2 sm:flex-1 border border-[#d4a017]/60 bg-[#081408]/80 text-[#faf8f5] hover:border-[#d4a017] hover:text-[#d4a017]"} text-center px-5 py-3 rounded-lg text-[11px] font-medium tracking-[0.2em] uppercase transition-colors`}
           >
-            {branch ? "View on menu" : "Choose a branch"}
+            {compact ? "See the full menu" : branch ? "View on menu" : "Choose a branch"}
           </Link>
           <a
-            href={christmasMenu.pdfUrl}
-            download
-            className="sm:flex-initial text-center px-5 py-3 rounded-lg border border-[#d4a017]/30 bg-[#081408]/80 text-[#d4a017] text-[11px] font-medium tracking-[0.2em] uppercase hover:border-[#d4a017] transition-colors"
+            href={reserve.href}
+            {...(reserve.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className={`${compact ? "order-2 border border-[#d4a017]/60 bg-[#081408]/80 text-[#faf8f5] hover:border-[#d4a017] hover:text-[#d4a017]" : "order-1 sm:flex-1 bg-[#d4a017] text-[#081408] hover:bg-[#e8c547]"} text-center px-5 py-3 rounded-lg text-[11px] font-semibold tracking-[0.2em] uppercase transition-colors`}
           >
-            PDF
+            {branch ? `Book at ${branch.name}` : "Book a table"}
           </a>
+          {!compact && (
+            <a
+              href={christmasMenu.pdfUrl}
+              download
+              className="order-3 text-center px-5 py-3 rounded-lg border border-[#d4a017]/30 bg-[#081408]/80 text-[#d4a017] text-[11px] font-medium tracking-[0.2em] uppercase hover:border-[#d4a017] transition-colors"
+            >
+              PDF
+            </a>
+          )}
         </div>
       </div>
     </dialog>
