@@ -15,9 +15,8 @@ const OPEN_DELAY_MS = 1200;
 const HEADING_ID = "christmas-popup-title";
 const COMPACT_QUERY = "(max-width: 639px)";
 
-/** Only greet visitors on the home page and branch pages; never interrupt menus, booking or legal pages. */
-function branchSlugFor(pathname: string): string | null | undefined {
-  if (pathname === "/") return null;
+/** Only greet visitors on a single branch page; never interrupt the home page, menus, booking or legal pages. */
+function branchSlugFor(pathname: string): string | undefined {
   const m = pathname.match(/^\/locations\/([^/]+)\/?$/);
   if (m) return getBranchBySlug(m[1]) ? m[1] : undefined;
   return undefined;
